@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Nokia Jam 7"
+run/main_scene="res://Scenes/game.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=84
+window/size/viewport_height=48
+window/size/window_width_override=1176
+window/size/window_height_override=672
+window/stretch/mode="canvas_items"
+
+[global_group]
+
+Objects=""
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.168627, 0.247059, 0.0352941, 1)
