@@ -1,0 +1,15 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://buumidpvvbjxq"
+valid=false
+
+[deps]
+
+source_file="res://Assets/default_tileset(1)/default_tileset.csv"
+
+[params]
+
+compress=true
+delimiter=0
