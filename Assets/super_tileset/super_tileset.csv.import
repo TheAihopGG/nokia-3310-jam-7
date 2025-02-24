@@ -2,12 +2,12 @@
 
 importer="csv_translation"
 type="Translation"
-uid="uid://buumidpvvbjxq"
+uid="uid://cwu4je6wuncmm"
 valid=false
 
 [deps]
 
-source_file="res://Assets/default_tileset(1)/default_tileset.csv"
+source_file="res://Assets/super_tileset/super_tileset.csv"
 
 [params]
 

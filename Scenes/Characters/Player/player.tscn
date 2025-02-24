@@ -1,10 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcbgtufmed15g"]
+[gd_scene load_steps=5 format=3 uid="uid://bcbgtufmed15g"]
 
 [ext_resource type="PackedScene" uid="uid://bhw7ii3pd1638" path="res://Scenes/Characters/character.tscn" id="1_lh6t2"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/player.gd" id="2_lvdns"]
+[ext_resource type="Texture2D" uid="uid://pgrf0k6o6jov" path="res://Assets/Sprites/player1.png" id="3_esnmk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w06j1"]
+size = Vector2(8, 10)
 
 [node name="Player" instance=ExtResource("1_lh6t2")]
 script = ExtResource("2_lvdns")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_esnmk")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_w06j1")
 
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
 position_smoothing_enabled = true
