@@ -23,6 +23,10 @@ window/size/window_width_override=1176
 window/size/window_height_override=672
 window/stretch/mode="canvas_items"
 
+[dotnet]
+
+project/assembly_name="Nokia Jam 7"
+
 [global_group]
 
 Objects=""
