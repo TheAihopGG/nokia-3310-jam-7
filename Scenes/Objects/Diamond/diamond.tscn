@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvvldda8khmm4"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Diamond/diamond.gd" id="1_1rd86"]
+[ext_resource type="Texture2D" uid="uid://cicrv7jg4cai2" path="res://Assets/Sprites/diamond1.png" id="2_qwqi1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xnkm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qwqi1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cuaua"]
+radius = 5.0
+
+[node name="Diamond" type="StaticBody2D" groups=["Diamonds"]]
+script = ExtResource("1_1rd86")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1xnkm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cuaua")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="DestructionTimer" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="timeout" from="Timers/DestructionTimer" to="." method="_on_destruction_timer_timeout"]
