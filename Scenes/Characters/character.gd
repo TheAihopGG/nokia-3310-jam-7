@@ -17,24 +17,24 @@ signal died()
 
 
 func _physics_process(_delta: float) -> void:
-    movement()
-    move_and_slide()
+	movement()
+	move_and_slide()
 
 
 func movement() -> void:
-    if movement_enabled:
-        velocity = move_direction.normalized() * speed
+	if movement_enabled:
+		velocity = move_direction.normalized() * speed
 
 
 func reduce_health(count : int) -> void:
-    health += count
-    if health > max_health:
-        health = max_health
-    
-    elif health < 0:
-        health = 0
-    
-    if health == 0:
-        died.emit()
-    
-    health_reduced.emit(health)
+	health += count
+	if health > max_health:
+		health = max_health
+	
+	elif health < 0:
+		health = 0
+	
+	if health == 0:
+		died.emit()
+	
+	health_reduced.emit(health)
