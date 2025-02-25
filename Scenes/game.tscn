@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://bv546m8milc82"]
+[gd_scene load_steps=7 format=4 uid="uid://bv546m8milc82"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_44l1p"]
 [ext_resource type="Texture2D" uid="uid://qdnhmn26s11o" path="res://Assets/select.png" id="2_denxk"]
 [ext_resource type="Script" path="res://Scenes/tile_map.gd" id="3_ed4oi"]
 [ext_resource type="PackedScene" uid="uid://bcbgtufmed15g" path="res://Scenes/Characters/Player/player.tscn" id="3_sqq7q"]
 [ext_resource type="TileSet" uid="uid://iqf6vft5b5oj" path="res://Assets/super_tileset/super_tileset_godot4.tres" id="4_a3nxx"]
+[ext_resource type="PackedScene" uid="uid://dal8fnmrik3mg" path="res://Scenes/UI/HealthBar/health_bar.tscn" id="6_jinp3"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -29,4 +30,8 @@ tile_set = ExtResource("4_a3nxx")
 
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(42, 24)
-speed = 20.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" parent="UI" instance=ExtResource("6_jinp3")]
+position = Vector2(12, 5)
