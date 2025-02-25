@@ -1,44 +1,30 @@
 class_name Player extends Character
 
 
+@onready var hitbox : Area2D = get_node("RotateWeapon/Hitbox")
+@onready var rotate_weapon : Node2D = get_node("RotateWeapon")
+
 var inventory : Dictionary = {
     'diamonds': 0
 }
 
-var nearest_diamond : Diamond
-var destructing_enabled : bool = true
+signal hp_changed(new_hp : int)
 
 func _ready() -> void:
-    GlobalVars.player = $"."
-
+    GlobalVars.player = self
+    
 func _process(_delta: float) -> void:
-    determine_direction()
-    destructing()
+    get_input()
 
-func determine_direction() -> void:
-    move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-    if move_direction.x > 0 and sprite.flip_h:
-        sprite.flip_h = false
-    elif move_direction.x < 0 and not sprite.flip_h:
-        sprite.flip_h = true
-
-
-func destructing() -> void:
-    if destructing_enabled:
-        if nearest_diamond and Input.is_action_just_pressed('destruct'):
-            if not nearest_diamond.is_destructed:
-                nearest_diamond._start_destruction()
-
-        elif nearest_diamond and Input.is_action_just_released('destruct'):
-            if not nearest_diamond.is_destructed:
-                nearest_diamond._stop_destruction()
-
-
-func _on_destruction_area_body_entered(body: Node2D) -> void:
-    if body.is_in_group('Diamonds'):
-        nearest_diamond = body
-
-
-func _on_destruction_area_body_exited(body: Node2D) -> void:
-    if body.is_in_group('Diamonds'):
-        nearest_diamond = null
+func get_input():
+    move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+    
+    rotate_weapon.look_at(get_global_mouse_position())
+    
+    if Input.is_action_pressed("F") or Input.is_action_pressed("left_button_mouse"):
+        hitbox.get_child(0).disabled = false
+    else:
+        hitbox.get_child(0).disabled = true
+    
+func _on_health_component_hp_changed(new_hp: Variant) -> void:
+    emit_signal("hp_changed", new_hp)

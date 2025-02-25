@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhw7ii3pd1638"]
+[gd_scene load_steps=4 format=3 uid="uid://bhw7ii3pd1638"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/character.gd" id="1_bftmo"]
 [ext_resource type="Texture2D" uid="uid://s07byf0yqgvd" path="res://Assets/test_player.png" id="2_rraqt"]
+[ext_resource type="PackedScene" uid="uid://bwih4ruasd3kw" path="res://Scenes/ECS/health_component.tscn" id="3_ch7kb"]
 
 [node name="Character" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_bftmo")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_ch7kb")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_rraqt")
