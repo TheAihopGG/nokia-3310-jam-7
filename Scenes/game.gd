@@ -6,6 +6,6 @@ extends Node2D
 
 
 func _input(_event: InputEvent) -> void:
-	#var selected_tile : Vector2 = tile_map.map_to_local(tile_map.local_to_map(get_global_mouse_position()))
-	#selected.global_position = selected_tile
-	pass
+    #var selected_tile : Vector2 = tile_map.map_to_local(tile_map.local_to_map(get_global_mouse_position()))
+    #selected.global_position = selected_tile
+    pass

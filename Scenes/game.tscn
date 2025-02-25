@@ -32,7 +32,6 @@ tile_set = ExtResource("4_a3nxx")
 
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(21, 22)
-speed = 20.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
