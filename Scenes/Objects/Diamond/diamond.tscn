@@ -1,7 +1,45 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvvldda8khmm4"]
+[gd_scene load_steps=8 format=3 uid="uid://cvvldda8khmm4"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/Diamond/diamond.gd" id="1_1rd86"]
 [ext_resource type="Texture2D" uid="uid://cicrv7jg4cai2" path="res://Assets/Sprites/diamond1.png" id="2_qwqi1"]
+
+[sub_resource type="Animation" id="Animation_on8p0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_qculo"]
+resource_name = "destruction"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.174533, 0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ldvh8"]
+_data = {
+"RESET": SubResource("Animation_on8p0"),
+"destruction": SubResource("Animation_qculo")
+}
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1xnkm"]
 animations = [{
@@ -19,6 +57,11 @@ radius = 5.0
 
 [node name="Diamond" type="StaticBody2D" groups=["Diamonds"]]
 script = ExtResource("1_1rd86")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ldvh8")
+}
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1xnkm")
