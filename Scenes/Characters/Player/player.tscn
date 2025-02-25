@@ -9,9 +9,12 @@ radius = 2.0
 height = 10.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c0ue3"]
+radius = 9.05539
 
 [node name="Player" instance=ExtResource("1_lh6t2")]
 script = ExtResource("2_lvdns")
+max_health = 6
+health = 3
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_esnmk")

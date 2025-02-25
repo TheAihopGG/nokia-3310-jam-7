@@ -3,8 +3,8 @@ class_name Character extends CharacterBody2D
 
 @export var max_health : int = 3
 @export var speed : float = 5
+@export var health : int = max_health
 
-@onready var health : int = max_health
 @onready var sprite  : Sprite2D = get_node("Sprite2D")
 @onready var tilemap : Node2D = get_tree().current_scene.get_node("TileMap")
 
@@ -14,6 +14,11 @@ var movement_enabled : bool = true
 
 signal health_reduced(new_health : int)
 signal died()
+
+
+func _ready() -> void:
+	if health > max_health:
+		health = max_health
 
 
 func _physics_process(_delta: float) -> void:
