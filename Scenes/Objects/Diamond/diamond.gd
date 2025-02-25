@@ -1,24 +1,30 @@
 class_name Diamond extends StaticBody2D
 
+
 @export var destruction_time : float = 1
 @export var drop = {
 	'diamonds': 10
 }
 
+
 @onready var destruction_timer : Timer = get_node('%DestructionTimer')
 @onready var animated_sprite : AnimatedSprite2D = get_node("AnimatedSprite2D")
 @onready var collision_shape : CollisionShape2D = get_node("CollisionShape2D")
 
+
 var is_collapsing : bool = false
 var is_destructed : bool = false
+
 
 func _start_destruction() -> void:
 	is_collapsing = true
 	destruction_timer.start(destruction_time)
 
+
 func _stop_destruction() -> void:
 	is_collapsing = false
 	destruction_timer.stop()
+
 
 func _on_destruction_timer_timeout() -> void:
 	is_collapsing = false

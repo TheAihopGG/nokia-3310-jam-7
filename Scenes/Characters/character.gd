@@ -1,5 +1,6 @@
 class_name Character extends CharacterBody2D
 
+
 @export var max_health : int = 3
 @export var speed : float = 5
 
@@ -11,16 +12,20 @@ class_name Character extends CharacterBody2D
 var move_direction : Vector2
 var movement_enabled : bool = true
 
+
 signal health_reduced(new_health : int)
 signal died()
+
 
 func _physics_process(_delta: float) -> void:
     movement()
     move_and_slide()
 
+
 func movement() -> void:
     if movement_enabled:
         velocity = move_direction.normalized() * speed
+
 
 func reduce_health(count : int) -> void:
     health += count
