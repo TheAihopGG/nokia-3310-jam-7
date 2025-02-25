@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcbgtufmed15g"]
+[gd_scene load_steps=6 format=3 uid="uid://bcbgtufmed15g"]
 
 [ext_resource type="PackedScene" uid="uid://bhw7ii3pd1638" path="res://Scenes/Characters/character.tscn" id="1_lh6t2"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/player.gd" id="2_lvdns"]
@@ -6,6 +6,8 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w06j1"]
 size = Vector2(8, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c0ue3"]
 
 [node name="Player" instance=ExtResource("1_lh6t2")]
 script = ExtResource("2_lvdns")
@@ -20,3 +22,12 @@ shape = SubResource("RectangleShape2D_w06j1")
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
+
+[node name="DestructionArea" type="Area2D" parent="." index="3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestructionArea" index="0"]
+shape = SubResource("CircleShape2D_c0ue3")
+debug_color = Color(0.963138, 1.34766e-06, 0.500482, 0.42)
+
+[connection signal="body_entered" from="DestructionArea" to="." method="_on_destruction_area_body_entered"]
+[connection signal="body_exited" from="DestructionArea" to="." method="_on_destruction_area_body_exited"]
