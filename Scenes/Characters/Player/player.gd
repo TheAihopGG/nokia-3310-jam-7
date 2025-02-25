@@ -1,4 +1,4 @@
-extends Character
+class_name Player extends Character
 
 func _process(_delta: float) -> void:
 	move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
