@@ -1,3 +1,4 @@
+@icon("res://Assets/Sprites/player1.png")
 class_name Player extends Character
 
 
@@ -12,9 +13,6 @@ signal hp_changed(new_hp : int)
 
 func _ready() -> void:
     GlobalVars.player = self
-    
-func _process(_delta: float) -> void:
-    get_input()
 
 func get_input():
     move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")

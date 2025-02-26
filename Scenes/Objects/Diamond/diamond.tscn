@@ -58,7 +58,7 @@ animations = [{
 radius = 5.0
 
 [node name="Diamond" type="StaticBody2D" groups=["Diamonds"]]
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 script = ExtResource("1_1rd86")
 

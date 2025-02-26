@@ -1,3 +1,4 @@
+@icon("res://Assets/test_player.png")
 class_name Character extends CharacterBody2D
 
 
@@ -12,14 +13,16 @@ const FRICTION : float = 0.15
 var move_direction : Vector2
 var movement_enabled : bool = true
 
-signal died()
-
 func _physics_process(_delta: float) -> void:
     move_and_slide()
     move()
     reverse_sprite()
+    get_input()
     velocity = lerp(velocity, Vector2.ZERO, FRICTION) 
 
+func get_input():
+    pass
+    
 func move() -> void:
     velocity += move_direction * accerelation
     velocity = velocity.limit_length(max_speed)

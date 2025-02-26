@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bwih4ruasd3kw" path="res://Scenes/ECS/health_component.tscn" id="3_ch7kb"]
 
 [node name="Character" type="CharacterBody2D"]
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 script = ExtResource("1_bftmo")
 

@@ -1,10 +1,8 @@
 class_name Hitbox extends Area2D 
 
 
-@export var damage          : int = -1
-@export var knockback_force : float = 300.0
-
-var knockback_direction : Vector2 = Vector2.ZERO
+@export var damage : int = -1
+@export var delay_attack : float = 0.5
 
 var body_inside : bool = false
 
@@ -25,9 +23,10 @@ func _ready():
 func _on_body_entered(body):
     if body == null: return
     body_inside = true
-    timer.start()
+    timer.start(delay_attack)
     # Пока зона урона внутри тела, будет наноситься урон с частотой в timer
     while body_inside:
+        if body == null: return
         _collide(body)
         await timer.timeout
         
