@@ -6,8 +6,10 @@ class_name Player extends Character
 @onready var rotate_weapon : Node2D = get_node("RotateWeapon")
 
 var inventory : Dictionary = {
-	'diamonds': 0
+	'diamonds': 0,
+	'keys': 1
 }
+var nearest_chest : Chest
 
 signal hp_changed(new_hp : int)
 
@@ -24,5 +26,21 @@ func get_input():
 	else:
 		hitbox.get_child(0).disabled = true
 	
+	if nearest_chest and Input.is_action_just_pressed("F"):
+		if not nearest_chest.is_opened:
+			if inventory['keys'] > 0:
+				inventory['keys'] -= 1
+				nearest_chest._open()
+	
 func _on_health_component_hp_changed(new_hp: Variant) -> void:
 	emit_signal("hp_changed", new_hp)
+
+func _on_interaction_area_body_entered(body: Node2D) -> void:
+	print(body)
+	if body.is_in_group('Chests'):
+		nearest_chest = body
+
+func _on_interaction_area_body_exited(body: Node2D) -> void:
+	print(body)
+	if body.is_in_group('Chests'):
+		nearest_chest = null

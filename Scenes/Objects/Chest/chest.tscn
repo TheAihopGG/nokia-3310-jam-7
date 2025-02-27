@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbuthd2134iv5"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Chest/chest.gd" id="1_pjxs1"]
+[ext_resource type="Texture2D" uid="uid://c6o6m65ca3gos" path="res://Assets/Sprites/chest1.png" id="2_uncju"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_setjr"]
+atlas = ExtResource("2_uncju")
+region = Rect2(0, 0, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51vq3"]
+atlas = ExtResource("2_uncju")
+region = Rect2(16, 0, 16, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_12kmy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_setjr")
+}],
+"loop": false,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51vq3")
+}],
+"loop": false,
+"name": &"opened",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwqhb"]
+size = Vector2(14, 14)
+
+[node name="Chest" type="StaticBody2D" groups=["Chests"]]
+script = ExtResource("1_pjxs1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Chests"]]
+sprite_frames = SubResource("SpriteFrames_12kmy")
+animation = &"closed"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_kwqhb")
