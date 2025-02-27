@@ -1,7 +1,6 @@
 class_name Diamond extends StaticBody2D
 
 
-@export var destruction_time : float = 1
 @export var drop = {
     'diamonds': 10
 }

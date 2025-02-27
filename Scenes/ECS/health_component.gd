@@ -4,9 +4,10 @@ class_name HealthComponent extends Node
 @export var max_health_points : int = 3
 @export var health_points     : int : 
     set = set_hp
-signal hp_changed(new_hp)
 
 @onready var parent : Node2D = get_parent()
+
+signal hp_changed(new_hp)
 
 func _ready() -> void:
     health_points = max_health_points

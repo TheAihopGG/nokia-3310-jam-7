@@ -2,7 +2,7 @@
 class_name Character extends CharacterBody2D
 
 
-@export var accerelation      : int = 5 # ускорение
+@export var acceleration      : int = 5 # ускорение
 @export var max_speed         : int = 40 
 
 @onready var sprite  : Sprite2D = get_node("Sprite2D")
@@ -24,7 +24,7 @@ func get_input():
     pass
     
 func move() -> void:
-    velocity += move_direction * accerelation
+    velocity += move_direction * acceleration
     velocity = velocity.limit_length(max_speed)
 
 func reverse_sprite() -> void:
