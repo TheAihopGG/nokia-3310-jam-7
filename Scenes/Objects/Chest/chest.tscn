@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbuthd2134iv5"]
+[gd_scene load_steps=8 format=3 uid="uid://dbuthd2134iv5"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/Chest/chest.gd" id="1_pjxs1"]
 [ext_resource type="Texture2D" uid="uid://c6o6m65ca3gos" path="res://Assets/Sprites/chest1.png" id="2_uncju"]
+[ext_resource type="PackedScene" uid="uid://bwih4ruasd3kw" path="res://Scenes/ECS/health_component.tscn" id="3_jjjjl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_setjr"]
 atlas = ExtResource("2_uncju")
@@ -45,3 +46,6 @@ animation = &"closed"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_kwqhb")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_jjjjl")]
+max_health_points = 10
