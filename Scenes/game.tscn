@@ -96,6 +96,7 @@ position = Vector2(48, -19)
 
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(19, 16)
+acceleration = 10
 
 [node name="Enemy" parent="." instance=ExtResource("8_xl1gq")]
 position = Vector2(97, 53)
