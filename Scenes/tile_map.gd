@@ -4,6 +4,7 @@ extends Node2D
 @onready var layer_floor : TileMapLayer = get_node("LayerFloor")
 @onready var layer_wall  : TileMapLayer = get_node("LayerWall")
 @onready var layer_fog   : TileMapLayer = get_node("LayerFog")
+@onready var layer_test  : TileMapLayer = get_node("LayerTest")
 
 const LIST_LAND : Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]
 
@@ -34,10 +35,37 @@ func get_array_circle(radius : int) -> Array[Vector2i]:
     var radius_range : Array = range(-radius, radius)
     for y in radius_range:
         for x in radius_range:
-            if x ** 2 + y ** 2 <= (radius - 1) ** 2:
+            if x ** 2 + y ** 2 <= (radius - 1) ** 2 and x ** 2 + y ** 2 >= (radius - 2) ** 2:
                 new_array.append(Vector2i(x, y))
     return new_array
-               
+    
+func get_line_tiles(start: Vector2, end: Vector2) -> Array[Vector2]:
+    var tiles : Array[Vector2] = []
+    
+    var dx : int = abs(end.x - start.x)
+    var dy : int = abs(end.y - start.y)
+    
+    var sx : int = 1 if start.x < end.x else -1
+    var sy : int = 1 if start.y < end.y else -1
+    
+    var err : int = dx - dy
+    
+    while true:
+        tiles.append(Vector2(start.x, start.y))  # Добавляем текущую точку в массив
+        
+        if start.x == end.x && start.y == end.y:  # Если достигли конечной точки, выходим
+            break
+        
+        var e2 = 2 * err
+        if e2 > -dy:
+            err -= dy
+            start.x += sx
+        if e2 < dx:
+            err += dx
+            start.y += sy
+    
+    return tiles
+              
 func map_to_local(pos : Vector2i) -> Vector2:
     return layer_floor.map_to_local(pos)
 

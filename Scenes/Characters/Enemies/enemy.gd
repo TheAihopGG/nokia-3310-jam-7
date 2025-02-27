@@ -2,7 +2,7 @@ extends Character
 
 
 @onready var navigation = get_node("NavigationAgent2D")
-@onready var pathTimer: Timer = get_node("PathTimer")
+@onready var pathTimer : Timer = get_node("PathTimer")
 
 
 func get_input():

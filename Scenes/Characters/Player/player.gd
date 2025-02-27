@@ -17,7 +17,7 @@ signal hp_changed(new_hp : int)
 
 func _ready() -> void:
     GlobalVars.player = self
-    current_tile_position = tilemap.layer_fog.local_to_map(global_position)
+    current_tile_position = tile_map.layer_fog.local_to_map(global_position)
     clear_fow()
 
 func get_input():
@@ -35,15 +35,25 @@ func get_input():
             if inventory['keys'] > 0:
                 inventory['keys'] -= 1
                 nearest_chest.open()
-                
-    current_tile_position = tilemap.local_to_map(global_position)
+
+    current_tile_position = tile_map.local_to_map(global_position)
     if current_tile_position != previous_tile_position:
         clear_fow()
         
 func clear_fow() -> void:
-    for neighbor_position in tilemap.list_vectors:
-        tilemap.layer_fog.erase_cell(current_tile_position + neighbor_position) 
     previous_tile_position = current_tile_position
+    for neighbor_position in tile_map.list_vectors:
+        var neighbor_tile = current_tile_position + neighbor_position
+        
+        for tile in tile_map.get_line_tiles(current_tile_position, neighbor_tile):
+            
+            var tile_data_wall : TileData = tile_map.layer_wall.get_cell_tile_data(tile) 
+            
+            if tile_data_wall == null:
+                tile_map.layer_fog.erase_cell(tile) 
+            else:
+                tile_map.layer_fog.erase_cell(tile) 
+                break
     
 func _on_health_component_hp_changed(new_hp: Variant) -> void:
     emit_signal("hp_changed", new_hp)

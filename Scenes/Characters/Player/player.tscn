@@ -128,13 +128,13 @@ script = ExtResource("2_lvdns")
 position = Vector2(0, 0)
 shape = SubResource("CapsuleShape2D_54mox")
 
-[node name="Camera2D" type="Camera2D" parent="." index="2"]
-position_smoothing_enabled = true
-rotation_smoothing_enabled = true
-
-[node name="AnimatedSprite2D" parent="." index="3"]
+[node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_eep3v")
 animation = &"walk"
+
+[node name="Camera2D" type="Camera2D" parent="." index="3"]
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 
 [node name="RotateWeapon" type="Node2D" parent="." index="4"]
 
