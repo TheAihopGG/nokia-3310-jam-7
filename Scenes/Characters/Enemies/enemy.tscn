@@ -1,18 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://4musjpj8oac5"]
+[gd_scene load_steps=6 format=3 uid="uid://4musjpj8oac5"]
 
 [ext_resource type="PackedScene" uid="uid://bhw7ii3pd1638" path="res://Scenes/Characters/character.tscn" id="1_pu503"]
 [ext_resource type="Script" path="res://Scenes/Characters/Enemies/enemy.gd" id="2_5ggdj"]
+[ext_resource type="Texture2D" uid="uid://ssg50lyvnwhp" path="res://Assets/Sprites/enemy5.png" id="3_a6b7r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2h18a"]
-radius = 2.0
-height = 4.0
+radius = 3.0
+height = 8.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_te8a0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_a6b7r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Enemy" instance=ExtResource("1_pu503")]
 script = ExtResource("2_5ggdj")
 
-[node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, 1)
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0)
 shape = SubResource("CapsuleShape2D_2h18a")
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_te8a0")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="3"]
 
