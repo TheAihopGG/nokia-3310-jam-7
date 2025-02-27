@@ -7,7 +7,7 @@ class_name Player extends Character
 
 var inventory : Dictionary = {
 	'diamonds': 0,
-	'keys': 1
+	'keys': 0
 }
 var nearest_chest : Chest
 
@@ -36,11 +36,15 @@ func _on_health_component_hp_changed(new_hp: Variant) -> void:
 	emit_signal("hp_changed", new_hp)
 
 func _on_interaction_area_body_entered(body: Node2D) -> void:
-	print(body)
 	if body.is_in_group('Chests'):
 		nearest_chest = body
 
 func _on_interaction_area_body_exited(body: Node2D) -> void:
-	print(body)
 	if body.is_in_group('Chests'):
 		nearest_chest = null
+
+func _on_pick_up_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group('Items'):
+		var item : Item = body
+		if not item.is_picked_up:
+			item._pick_up()
