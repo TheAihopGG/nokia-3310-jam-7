@@ -21,12 +21,12 @@ func get_input():
 	
 	rotate_weapon.look_at(get_global_mouse_position())
 	
-	if Input.is_action_pressed("F") or Input.is_action_pressed("left_button_mouse"):
+	if Input.is_action_pressed("attack"):
 		hitbox.get_child(0).disabled = false
 	else:
 		hitbox.get_child(0).disabled = true
 	
-	if nearest_chest and Input.is_action_just_pressed("F"):
+	if nearest_chest and Input.is_action_pressed("interact"):
 		if not nearest_chest.is_opened:
 			if inventory['keys'] > 0:
 				inventory['keys'] -= 1
