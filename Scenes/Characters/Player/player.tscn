@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bhw7ii3pd1638" path="res://Scenes/Characters/character.tscn" id="1_lh6t2"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/player.gd" id="2_lvdns"]
-[ext_resource type="Texture2D" uid="uid://pgrf0k6o6jov" path="res://Assets/Sprites/player1.png" id="3_esnmk"]
+[ext_resource type="Texture2D" uid="uid://bk3ik68o74joh" path="res://Assets/Sprites/enemy1.png" id="3_ks0ji"]
 [ext_resource type="Script" path="res://Scenes/Characters/hitbox.gd" id="4_8g25m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_54mox"]
@@ -16,7 +16,7 @@ radius = 4.0
 script = ExtResource("2_lvdns")
 
 [node name="Sprite2D" parent="." index="1"]
-texture = ExtResource("3_esnmk")
+texture = ExtResource("3_ks0ji")
 metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
