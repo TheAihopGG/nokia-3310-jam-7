@@ -35,7 +35,7 @@ func _on_body_exited(_body):
 	timer.stop()
 
 func _collide(body : Node2D) -> void:
-	if body == null or not body.has_node("HealthComponent") or body == parent:
+	if not body or not body.has_node("HealthComponent") or body == parent:
 		pass
 	else:
 		body.get_node("HealthComponent").take_damage(parent, damage)
