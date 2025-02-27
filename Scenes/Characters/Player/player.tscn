@@ -1,13 +1,117 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcbgtufmed15g"]
+[gd_scene load_steps=24 format=3 uid="uid://bcbgtufmed15g"]
 
 [ext_resource type="PackedScene" uid="uid://bhw7ii3pd1638" path="res://Scenes/Characters/character.tscn" id="1_lh6t2"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/player.gd" id="2_lvdns"]
-[ext_resource type="Texture2D" uid="uid://bk3ik68o74joh" path="res://Assets/Sprites/enemy1.png" id="3_ks0ji"]
+[ext_resource type="Texture2D" uid="uid://c84du0bp7ghvv" path="res://Assets/Sprites/player_attack.png" id="3_dqvlk"]
 [ext_resource type="Script" path="res://Scenes/Characters/hitbox.gd" id="4_8g25m"]
+[ext_resource type="Texture2D" uid="uid://ch27c2afpl1c7" path="res://Assets/Sprites/player_idle.png" id="4_nxt3c"]
+[ext_resource type="Texture2D" uid="uid://da2amfe33k0rl" path="res://Assets/Sprites/player_walk.png" id="5_ecvio"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_54mox"]
 radius = 3.0
 height = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e85h0"]
+atlas = ExtResource("3_dqvlk")
+region = Rect2(0, 0, 16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1le45"]
+atlas = ExtResource("3_dqvlk")
+region = Rect2(16, 0, 16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74ibu"]
+atlas = ExtResource("3_dqvlk")
+region = Rect2(32, 0, 16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl7wg"]
+atlas = ExtResource("3_dqvlk")
+region = Rect2(48, 0, 16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_holhk"]
+atlas = ExtResource("3_dqvlk")
+region = Rect2(64, 0, 16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aynpr"]
+atlas = ExtResource("3_dqvlk")
+region = Rect2(80, 0, 16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8j0f"]
+atlas = ExtResource("4_nxt3c")
+region = Rect2(0, 0, 10, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1lc2g"]
+atlas = ExtResource("4_nxt3c")
+region = Rect2(10, 0, 10, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muqia"]
+atlas = ExtResource("4_nxt3c")
+region = Rect2(20, 0, 10, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfp0l"]
+atlas = ExtResource("5_ecvio")
+region = Rect2(0, 0, 10, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44opn"]
+atlas = ExtResource("5_ecvio")
+region = Rect2(10, 0, 10, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tb1r"]
+atlas = ExtResource("5_ecvio")
+region = Rect2(20, 0, 10, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eep3v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e85h0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1le45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74ibu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl7wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_holhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aynpr")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8j0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1lc2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muqia")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfp0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44opn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tb1r")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ancj"]
 radius = 4.0
@@ -20,17 +124,17 @@ radius = 7.0
 [node name="Player" instance=ExtResource("1_lh6t2")]
 script = ExtResource("2_lvdns")
 
-[node name="Sprite2D" parent="." index="1"]
-texture = ExtResource("3_ks0ji")
-metadata/_edit_lock_ = true
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0)
+shape = SubResource("CapsuleShape2D_54mox")
 
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
-[node name="CollisionShape2D" parent="." index="3"]
-position = Vector2(0, 0)
-shape = SubResource("CapsuleShape2D_54mox")
+[node name="AnimatedSprite2D" parent="." index="3"]
+sprite_frames = SubResource("SpriteFrames_eep3v")
+animation = &"walk"
 
 [node name="RotateWeapon" type="Node2D" parent="." index="4"]
 
