@@ -3,7 +3,6 @@ extends Character
 
 @onready var navigation = get_node("NavigationAgent2D")
 @onready var pathTimer: Timer = get_node("PathTimer")
-@onready var player = get_tree().current_scene.get_node("Player")
 
 
 func get_input():
@@ -15,8 +14,8 @@ func chase() -> void:
 		move_direction = vector_to_next_point
 
 func _on_path_timer_timeout():
-	if is_instance_valid(player):
-		set_movement_target(player.position)
+	if is_instance_valid(GlobalVars.player):
+		set_movement_target(GlobalVars.player.position)
 	else:
 		pathTimer.stop()
 		move_direction = Vector2.ZERO
