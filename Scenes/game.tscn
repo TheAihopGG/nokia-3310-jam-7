@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dbuthd2134iv5" path="res://Scenes/Objects/Chest/chest.tscn" id="8_y5kmh"]
 [ext_resource type="Script" path="res://addons/gaea/tile_info/tilemap_tile_info.gd" id="9_5tsie"]
 [ext_resource type="FontFile" uid="uid://unpc42xsvs48" path="res://Assets/Fonts/tiny/tiny.ttf" id="9_o28ag"]
+[ext_resource type="AudioStream" uid="uid://bv8wwjkdb08d8" path="res://Assets/Sounds/ia-kamenshchik-rabotaiut-3-dnia-a-a-a-a-a.mp3" id="11_qw7yh"]
 [ext_resource type="PackedScene" uid="uid://be5nsme2f8hbd" path="res://Scenes/Characters/Enemies/Beatle/beatle.tscn" id="12_0d28c"]
 
 [sub_resource type="Resource" id="Resource_kwvrm"]
@@ -182,10 +183,9 @@ metadata/_edit_lock_ = true
 stream = ExtResource("11_qw7yh")
 volume_db = 24.0
 
-[node name="ThreadedTilemapGaeaRenderer" type="Node" parent="Tools" node_paths=PackedStringArray("tile_map_layers", "generator")]
+[node name="ThreadedTilemapGaeaRenderer" type="Node" parent="Tools" node_paths=PackedStringArray("tile_map_layers")]
 script = ExtResource("3_7ddka")
 tile_map_layers = [NodePath("../../TileMap/LayerFloor"), NodePath("../../TileMap/LayerWall")]
-generator = NodePath("../WalkerGenerator")
 
 [node name="WalkerGenerator" type="Node" parent="Tools"]
 script = ExtResource("4_jastd")
@@ -242,11 +242,6 @@ position = Vector2(48, -19)
 
 [node name="Chest" parent="Items" instance=ExtResource("8_y5kmh")]
 position = Vector2(50, 14)
-
-[node name="Enemies" type="Node" parent="."]
-
-[node name="Beatle" parent="Enemies" instance=ExtResource("12_0d28c")]
-position = Vector2(90, 27)
 
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(20, 30)
