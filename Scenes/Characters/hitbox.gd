@@ -13,31 +13,31 @@ var kickback_direction : Vector2 = Vector2.ZERO
 var body_inside : bool = false
 
 func _init():
-    var __ = connect("body_entered", Callable(self, "_on_body_entered"))
-    __ = connect("body_exited", Callable(self, "_on_body_exited"))
-    
+	var __ = connect("body_entered", Callable(self, "_on_body_entered"))
+	__ = connect("body_exited", Callable(self, "_on_body_exited"))
+	
 func _ready():
-    add_child(timer)
-    timer.autostart = true
-    # Ошибка если нету коллизии
-    assert(collision != null)
-    
+	add_child(timer)
+	timer.autostart = true
+	# Ошибка если нету коллизии
+	assert(collision != null)
+	
 func _on_body_entered(body):
-    if body == null: return
-    body_inside = true
-    timer.start(delay_attack)
-    # Пока зона урона внутри тела, будет наноситься урон с частотой в timer
-    while body_inside:
-        if body == null: return
-        _collide(body)
-        await timer.timeout
+	if body == null: return
+	body_inside = true
+	timer.start(delay_attack)
+	# Пока зона урона внутри тела, будет наноситься урон с частотой в timer
+	while body_inside:
+		if body == null: return
+		_collide(body)
+		await timer.timeout
 
 func _on_body_exited(_body):
-    body_inside = false
-    timer.stop()
+	body_inside = false
+	timer.stop()
 
 func _collide(body : Node2D) -> void:
-    if not body or not body.has_node("HealthComponent") or body == parent:
-        pass
-    else:
-        body.get_node("HealthComponent").take_damage(parent, damage, kickback_direction, kickback_force)
+	if not body or not body.has_node("HealthComponent") or body == parent:
+		pass
+	else:
+		body.get_node("HealthComponent").take_damage(parent, damage, kickback_direction, kickback_force)
