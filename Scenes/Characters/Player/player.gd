@@ -16,11 +16,6 @@ func _ready() -> void:
     GlobalVars.player = self
     current_tile_position = tile_map.layer_fog.local_to_map(global_position)
     clear_fow()
-    dialog.say([
-        "Я каменщик!",
-        "Работаю три дня!!",
-        "БЕЗ ЗАРПЛАТЫ ААААА!!!"
-    ])
 
 func _process(_delta: float) -> void:
     var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
