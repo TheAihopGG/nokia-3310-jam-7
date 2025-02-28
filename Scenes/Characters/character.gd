@@ -23,9 +23,10 @@ func get_input():
 	pass
 	
 func move() -> void:
-	velocity += move_direction * acceleration
-	velocity = velocity.limit_length(max_speed)
-	velocity = lerp(velocity, Vector2.ZERO, FRICTION) 
+	if movement_enabled:
+		velocity += move_direction * acceleration
+		velocity = velocity.limit_length(max_speed)
+		velocity = lerp(velocity, Vector2.ZERO, FRICTION) 
 
 func reverse_sprite() -> void:
 	if move_direction.x > 0 and sprite.flip_h:
