@@ -37,7 +37,7 @@ project/assembly_name="Nokia Jam 7"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/gaea/plugin.cfg")
 
 [global_group]
 
