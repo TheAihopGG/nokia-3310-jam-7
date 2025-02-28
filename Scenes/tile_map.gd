@@ -13,9 +13,8 @@ var endurance_tiles : Dictionary
 
 func _ready() -> void:
     layer_fog.show()
-    _tilemap_matrix_generation()
     
-func _tilemap_matrix_generation() -> void:
+func generate_chunk() -> void:
      # полные размеры карты и координаты начального тайла
     var region_size     : Vector2i = layer_wall.get_used_rect().size
     var region_position : Vector2i = layer_wall.get_used_rect().position
@@ -36,6 +35,8 @@ func _tilemap_matrix_generation() -> void:
 func breaking_tile(tile_pos : Vector2i) -> void:
     var tile_date = layer_wall.get_cell_tile_data(tile_pos) # получает данные о тайле
     if tile_date:
+        if tile_pos not in endurance_tiles:
+            endurance_tiles[tile_pos] = 2
         endurance_tiles[tile_pos] -= 1
         if endurance_tiles[tile_pos] <= 0:
             layer_floor.set_cell(tile_pos, 1, LIST_LAND.pick_random())
