@@ -110,6 +110,5 @@ position = Vector2(50, 14)
 
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(19, 16)
-acceleration = 10
 
 [connection signal="hp_changed" from="Player" to="UI" method="_on_player_hp_changed"]
