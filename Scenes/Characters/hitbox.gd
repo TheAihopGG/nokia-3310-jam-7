@@ -4,11 +4,11 @@ class_name Hitbox extends Area2D
 @export var damage : int = -1
 @export var delay_attack : float = 0.5
 
-var body_inside : bool = false
-
 @onready var collision : CollisionShape2D = get_child(0)
 @onready var timer     : Timer = Timer.new()
 @onready var parent    : CharacterBody2D = owner
+
+var body_inside : bool = false
 
 func _init():
 	var __ = connect("body_entered", Callable(self, "_on_body_entered"))
