@@ -20,4 +20,3 @@ func _on_timer_timeout() -> void:
 	
 	else:
 		visible = false
-a
