@@ -9,7 +9,7 @@ var texts : Array[String]
 
 func _say(texts_to_say : Array[String]) -> void:
 	texts = texts_to_say
-	timer.start(0)
+	_on_timer_timeout()
 
 func _on_timer_timeout() -> void:
 	if texts:
@@ -20,3 +20,4 @@ func _on_timer_timeout() -> void:
 	
 	else:
 		visible = false
+a
