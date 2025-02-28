@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbuthd2134iv5"]
+[gd_scene load_steps=12 format=3 uid="uid://dbuthd2134iv5"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/Chest/chest.gd" id="1_pjxs1"]
 [ext_resource type="Texture2D" uid="uid://c6o6m65ca3gos" path="res://Assets/Sprites/chest1.png" id="2_uncju"]
-[ext_resource type="PackedScene" uid="uid://bwih4ruasd3kw" path="res://Scenes/ECS/health_component.tscn" id="3_jjjjl"]
+[ext_resource type="AudioStream" uid="uid://c6qi8w7y5pmf2" path="res://Assets/Sounds/odd3.wav" id="4_drn2q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_setjr"]
 atlas = ExtResource("2_uncju")
@@ -31,6 +31,94 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_ud3lv"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["closed"]
+}
+
+[sub_resource type="Animation" id="Animation_m7ucb"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["opened"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/Open:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_631t2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sounds/Open:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pfviq"]
+_data = {
+"RESET": SubResource("Animation_631t2"),
+"closed": SubResource("Animation_ud3lv"),
+"opened": SubResource("Animation_m7ucb")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwqhb"]
 size = Vector2(14, 14)
 
@@ -39,13 +127,18 @@ script = ExtResource("1_pjxs1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Chests"]]
 sprite_frames = SubResource("SpriteFrames_12kmy")
-animation = &"closed"
+animation = &"opened"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pfviq")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_kwqhb")
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_jjjjl")]
-max_health_points = 10
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Open" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("4_drn2q")

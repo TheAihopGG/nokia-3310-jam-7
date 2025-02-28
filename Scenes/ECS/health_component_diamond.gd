@@ -8,4 +8,3 @@ func take_damage(attacker : CharacterBody2D, damage : int, _dir : Vector2, _forc
 	if health_points <= 0:
 		for key in parent.drop.keys():
 			attacker.inventory[key] += parent.drop[key]
-		parent.queue_free()

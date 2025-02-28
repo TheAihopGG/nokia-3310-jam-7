@@ -5,15 +5,15 @@ class_name Chest extends StaticBody2D
 	'diamonds': 100
 }
 
-@onready var animated_sprite : AnimatedSprite2D = get_node("AnimatedSprite2D")
+@onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
 
 var is_opened : bool = false
 
 func _ready() -> void:
-	animated_sprite.play('closed')
+	animation_player.play('closed')
 
 func open() -> void:
-	animated_sprite.play('opened')
+	animation_player.play('opened')
 	for key in drop.keys():
 		GlobalVars.player.inventory[key] += drop[key]
 	

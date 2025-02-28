@@ -2,7 +2,7 @@ class_name Enemy extends Character
 
 
 @onready var navigation = get_node("NavigationAgent2D")
-@onready var pathTimer : Timer = get_node("PathTimer")
+@onready var path_timer : Timer = get_node("PathTimer")
 	
 func chase() -> void:
 	if not navigation.is_target_reached():
@@ -13,7 +13,7 @@ func _on_path_timer_timeout():
 	if is_instance_valid(GlobalVars.player):
 		set_movement_target(GlobalVars.player.position)
 	else:
-		pathTimer.stop()
+		path_timer.stop()
 		move_direction = Vector2.ZERO
 
 func set_movement_target(target_point : Vector2) -> void:
