@@ -14,21 +14,21 @@ var move_direction : Vector2
 var movement_enabled : bool = true
 
 func _physics_process(_delta: float) -> void:
-    move_and_slide()
-    move()
-    reverse_sprite()
-    get_input()
-    velocity = lerp(velocity, Vector2.ZERO, FRICTION) 
+	move_and_slide()
+	move()
+	reverse_sprite()
+	get_input()
+	velocity = lerp(velocity, Vector2.ZERO, FRICTION) 
 
 func get_input():
-    pass
-    
+	pass
+	
 func move() -> void:
-    velocity += move_direction * acceleration
-    velocity = velocity.limit_length(max_speed)
+	velocity += move_direction * acceleration
+	velocity = velocity.limit_length(max_speed)
 
 func reverse_sprite() -> void:
-    if move_direction.x > 0 and sprite.flip_h:
-        sprite.flip_h = false
-    elif move_direction.x < 0 and not sprite.flip_h:
-        sprite.flip_h = true
+	if move_direction.x > 0 and sprite.flip_h:
+		sprite.flip_h = false
+	elif move_direction.x < 0 and not sprite.flip_h:
+		sprite.flip_h = true
