@@ -1,0 +1,158 @@
+[gd_scene load_steps=12 format=3 uid="uid://be5nsme2f8hbd"]
+
+[ext_resource type="PackedScene" uid="uid://4musjpj8oac5" path="res://Scenes/Characters/Enemies/enemy.tscn" id="1_6e4gx"]
+[ext_resource type="Script" path="res://Scenes/Characters/Enemies/Beatle/BeatleFSM.gd" id="2_bhe2i"]
+[ext_resource type="Script" path="res://Scenes/Characters/Enemies/Beatle/beatle.gd" id="2_nqbpa"]
+[ext_resource type="Texture2D" uid="uid://c1wy5qyxfevx2" path="res://Assets/Sprites/enemy4.png" id="3_mnfp2"]
+[ext_resource type="Script" path="res://Scenes/Characters/hitbox.gd" id="5_leec0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v5ook"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_mnfp2")
+}],
+"loop": true,
+"name": &"chase",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_217nk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"chase"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_5uip4"]
+resource_name = "chase"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"chase"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_d8yas"]
+resource_name = "hurt"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"chase"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_niec7"]
+_data = {
+"RESET": SubResource("Animation_217nk"),
+"chase": SubResource("Animation_5uip4"),
+"hurt": SubResource("Animation_d8yas")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1tef0"]
+radius = 7.0
+
+[node name="Beatle" instance=ExtResource("1_6e4gx")]
+script = ExtResource("2_nqbpa")
+
+[node name="FiniteStateMachine" parent="." index="1"]
+script = ExtResource("2_bhe2i")
+
+[node name="AnimatedSprite2D" parent="." index="3"]
+sprite_frames = SubResource("SpriteFrames_v5ook")
+animation = &"chase"
+
+[node name="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_niec7")
+}
+
+[node name="Hitbox" type="Area2D" parent="." index="7"]
+script = ExtResource("5_leec0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_1tef0")

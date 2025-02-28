@@ -7,16 +7,16 @@ class_name Dialog extends Label
 
 var texts : Array[String]
 
-func _say(texts_to_say : Array[String]) -> void:
-	texts = texts_to_say
-	_on_timer_timeout()
+func say(texts_to_say : Array[String]) -> void:
+    texts = texts_to_say
+    _on_timer_timeout()
 
 func _on_timer_timeout() -> void:
-	if texts:
-		text = texts[0]
-		timer.start(len(texts[0]) * text_speech_speed)
-		texts.remove_at(0)
-		visible = true
-	
-	else:
-		visible = false
+    if texts:
+        text = texts[0]
+        timer.start(len(texts[0]) * text_speech_speed)
+        texts.remove_at(0)
+        visible = true
+    
+    else:
+        visible = false

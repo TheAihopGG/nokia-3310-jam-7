@@ -4,7 +4,6 @@ extends Node2D
 @onready var layer_floor : TileMapLayer = get_node("LayerFloor")
 @onready var layer_wall  : TileMapLayer = get_node("LayerWall")
 @onready var layer_fog   : TileMapLayer = get_node("LayerFog")
-@onready var layer_test  : TileMapLayer = get_node("LayerTest")
 
 const LIST_LAND : Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]
 
