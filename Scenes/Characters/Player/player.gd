@@ -6,10 +6,6 @@ class_name Player extends Character
 @onready var rotate_weapon : Node2D = get_node("RotateWeapon")
 @onready var dialog : Dialog = get_node("Dialog")
 
-var inventory : Dictionary = {
-    'diamonds': 0,
-    'keys': 0
-}
 var nearest_chest : Chest
 var current_tile_position  : Vector2i
 var previous_tile_position : Vector2i
@@ -47,6 +43,9 @@ func get_input():
     
     if Input.is_action_pressed("mouse_button_left") and state_machine.state != state_machine.states.attack:
         state_machine.set_state(state_machine.states.attack)
+        var tile_position : Vector2i = tile_map.local_to_map(get_global_mouse_position())
+        
+        tile_map.breaking_tile(tile_position)
     
     if nearest_chest and Input.is_action_pressed("interact"):
         if not nearest_chest.is_opened:
@@ -86,4 +85,4 @@ func _on_pick_up_area_body_entered(body: Node2D) -> void:
     if body.is_in_group('Items'):
         var item : Item = body
         if not item.is_picked_up:
-            item._pick_up()
+            item.pick_up()

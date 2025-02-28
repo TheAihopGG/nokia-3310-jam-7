@@ -1,3 +1,4 @@
+@icon("res://Assets/Sprites/enemy4.png")
 extends Enemy
 
 

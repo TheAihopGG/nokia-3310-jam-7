@@ -45,6 +45,7 @@ Objects=""
 Diamonds=""
 Chests=""
 Items=""
+ENEMY_GROUP=""
 
 [input]
 

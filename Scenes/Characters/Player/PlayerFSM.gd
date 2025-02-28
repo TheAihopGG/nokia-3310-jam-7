@@ -6,6 +6,7 @@ func _init() -> void:
     _add_state("move")
     _add_state("attack")
     _add_state("hurt")
+    _add_state("dead")
 
 func _ready() -> void:
     set_state(states.idle)
@@ -30,7 +31,7 @@ func _get_transition() -> int:
                 return states.idle
         
         states.hurt:
-            if not parent.hitbox.get_child(0).disabled and not animation_player.is_playing():
+            if not animation_player.is_playing():
                 return states.idle
     return -1
     
@@ -44,3 +45,5 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
             animation_player.play("move")
         states.hurt:
             animation_player.play("hurt")
+        states.dead:
+            animation_player.play("dead")

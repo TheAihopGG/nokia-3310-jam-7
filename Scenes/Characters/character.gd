@@ -13,6 +13,11 @@ const FRICTION : float = 0.15
 
 var move_direction : Vector2
 
+var inventory : Dictionary = {
+    'diamonds': 0,
+    'keys': 0
+}
+
 func _physics_process(_delta: float) -> void:
     move_and_slide()
     velocity = lerp(velocity, Vector2.ZERO, FRICTION) 

@@ -9,6 +9,8 @@ const LIST_LAND : Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0,
 
 var list_vectors : Array[Vector2i] = get_array_circle(4)
 
+var endurance_tiles : Dictionary
+
 func _ready() -> void:
     layer_fog.show()
     _tilemap_matrix_generation()
@@ -28,7 +30,18 @@ func _tilemap_matrix_generation() -> void:
             var tile_data_wall : TileData = layer_wall.get_cell_tile_data(tile_position) 
             if not tile_data_wall:
                 layer_floor.set_cell(tile_position, 1, LIST_LAND.pick_random())
+            else:
+                endurance_tiles[tile_position] = 2
 
+func breaking_tile(tile_pos : Vector2i) -> void:
+    var tile_date = layer_wall.get_cell_tile_data(tile_pos) # получает данные о тайле
+    if tile_date:
+        endurance_tiles[tile_pos] -= 1
+        if endurance_tiles[tile_pos] <= 0:
+            layer_floor.set_cell(tile_pos, 1, LIST_LAND.pick_random())
+            layer_wall.set_cells_terrain_connect([tile_pos], 0, -1, false)
+            endurance_tiles.erase(tile_pos)
+    
 func get_array_circle(radius : int) -> Array[Vector2i]:
     var new_array : Array[Vector2i]
     var radius_range : Array = range(-radius, radius)
