@@ -113,6 +113,5 @@ position = Vector2(20, 30)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 volume_db = 24.0
-autoplay = true
 
 [connection signal="hp_changed" from="Player" to="UI" method="_on_player_hp_changed"]
