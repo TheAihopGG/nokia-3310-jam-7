@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c84du0bp7ghvv" path="res://Assets/Sprites/player_attack.png" id="3_dqvlk"]
 [ext_resource type="Script" path="res://Scenes/Characters/hitbox.gd" id="4_8g25m"]
 [ext_resource type="Texture2D" uid="uid://ch27c2afpl1c7" path="res://Assets/Sprites/player_idle.png" id="4_nxt3c"]
+[ext_resource type="PackedScene" uid="uid://d0odghx6qv0gp" path="res://Scenes/Characters/Dialog/dialog.tscn" id="4_x2o4e"]
 [ext_resource type="Texture2D" uid="uid://da2amfe33k0rl" path="res://Assets/Sprites/player_walk.png" id="5_ecvio"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_54mox"]
@@ -241,9 +242,6 @@ _data = {
 "walk": SubResource("Animation_30rcw")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_smkk5"]
-font_size = 8
-
 [node name="Player" instance=ExtResource("1_lh6t2")]
 script = ExtResource("2_lvdns")
 acceleration = 10
@@ -257,15 +255,17 @@ position = Vector2(0, 0)
 shape = SubResource("CapsuleShape2D_54mox")
 debug_color = Color(0.947358, 3.56168e-06, 0.583463, 0.42)
 
-[node name="AnimatedSprite2D" parent="." index="3"]
+[node name="Dialog" parent="." index="3" instance=ExtResource("4_x2o4e")]
+
+[node name="AnimatedSprite2D" parent="." index="4"]
 sprite_frames = SubResource("SpriteFrames_eep3v")
 animation = &"attack"
 
-[node name="Camera2D" type="Camera2D" parent="." index="4"]
+[node name="Camera2D" type="Camera2D" parent="." index="5"]
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
-[node name="RotateWeapon" type="Node2D" parent="." index="5"]
+[node name="RotateWeapon" type="Node2D" parent="." index="6"]
 
 [node name="Hitbox" type="Area2D" parent="RotateWeapon" index="0"]
 position = Vector2(7, 0)
@@ -275,31 +275,23 @@ script = ExtResource("4_8g25m")
 shape = SubResource("CircleShape2D_7ancj")
 metadata/_edit_lock_ = true
 
-[node name="InteractionArea" type="Area2D" parent="." index="6"]
+[node name="InteractionArea" type="Area2D" parent="." index="7"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" index="0"]
 shape = SubResource("CircleShape2D_rbr0f")
 debug_color = Color(0.40239, 0.467644, 1, 0.42)
 
-[node name="PickUpArea" type="Area2D" parent="." index="7"]
+[node name="PickUpArea" type="Area2D" parent="." index="8"]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea" index="0"]
 shape = SubResource("CircleShape2D_w5l8l")
 
-[node name="AnimationPlayer" parent="." index="8"]
+[node name="AnimationPlayer" parent="." index="9"]
 libraries = {
 "": SubResource("AnimationLibrary_i4yln")
 }
-
-[node name="Label" type="Label" parent="." index="9"]
-offset_left = -20.0
-offset_top = -19.0
-offset_right = 20.0
-offset_bottom = -7.0
-label_settings = SubResource("LabelSettings_smkk5")
-horizontal_alignment = 1
 
 [connection signal="hp_changed" from="HealthComponent" to="." method="_on_health_component_hp_changed"]
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]

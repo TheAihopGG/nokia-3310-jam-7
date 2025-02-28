@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0odghx6qv0gp"]
+
+[ext_resource type="FontFile" uid="uid://unpc42xsvs48" path="res://Assets/Fonts/tiny/tiny.ttf" id="1_3aydv"]
+[ext_resource type="Script" path="res://Scenes/Characters/Dialog/dialog.gd" id="2_lecui"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4jg3i"]
+font = ExtResource("1_3aydv")
+font_size = 4
+font_color = Color(0.607843, 0.780392, 0, 1)
+outline_size = 2
+outline_color = Color(0.168627, 0.247059, 0.0352941, 1)
+
+[node name="Dialog" type="Label"]
+visible = false
+offset_left = -22.0
+offset_top = -12.0
+offset_right = 21.0
+label_settings = SubResource("LabelSettings_4jg3i")
+horizontal_alignment = 1
+script = ExtResource("2_lecui")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

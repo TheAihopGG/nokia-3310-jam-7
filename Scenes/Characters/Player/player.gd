@@ -4,6 +4,7 @@ class_name Player extends Character
 
 @onready var hitbox : Area2D = get_node("RotateWeapon/Hitbox")
 @onready var rotate_weapon : Node2D = get_node("RotateWeapon")
+@onready var dialog : Dialog = get_node("Dialog")
 
 var inventory : Dictionary = {
 	'diamonds': 0,
@@ -19,6 +20,11 @@ func _ready() -> void:
 	GlobalVars.player = self
 	current_tile_position = tile_map.layer_fog.local_to_map(global_position)
 	clear_fow()
+	dialog._say([
+		"Я каменщик!",
+		"Работаю три дня!!",
+		"БЕЗ ЗАРПЛАТЫ ААААА!!!"
+	])
 
 func get_input():
 	move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -35,6 +41,9 @@ func get_input():
 			if inventory['keys'] > 0:
 				inventory['keys'] -= 1
 				nearest_chest.open()
+			
+			else:
+				dialog._say(["You need a key"])
 
 	current_tile_position = tile_map.local_to_map(global_position)
 	if current_tile_position != previous_tile_position:
