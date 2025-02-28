@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
     elif mouse_direction.x < 0 and not animated_sprite.flip_h:
         animated_sprite.flip_h = true
     
-    hitbox.knockback_direction = mouse_direction
+    hitbox.kickback_direction = mouse_direction
     
     current_tile_position = tile_map.local_to_map(global_position)
     if current_tile_position != previous_tile_position:
