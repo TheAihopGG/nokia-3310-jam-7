@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://bv546m8milc82"]
+[gd_scene load_steps=18 format=4 uid="uid://bv546m8milc82"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_44l1p"]
 [ext_resource type="Script" path="res://Scenes/tile_map.gd" id="3_ed4oi"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bb01yqudxei3q" path="res://Assets/Sprites/health.png" id="8_kujqx"]
 [ext_resource type="PackedScene" uid="uid://dbuthd2134iv5" path="res://Scenes/Objects/Chest/chest.tscn" id="8_y5kmh"]
 [ext_resource type="FontFile" uid="uid://unpc42xsvs48" path="res://Assets/Fonts/tiny/tiny.ttf" id="9_o28ag"]
+[ext_resource type="AudioStream" uid="uid://bv8wwjkdb08d8" path="res://Assets/Sounds/ia-kamenshchik-rabotaiut-3-dnia-a-a-a-a-a.mp3" id="11_qw7yh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hrol5"]
 atlas = ExtResource("8_kujqx")
@@ -110,5 +111,9 @@ position = Vector2(50, 14)
 
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(19, 16)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_qw7yh")
+autoplay = true
 
 [connection signal="hp_changed" from="Player" to="UI" method="_on_player_hp_changed"]
