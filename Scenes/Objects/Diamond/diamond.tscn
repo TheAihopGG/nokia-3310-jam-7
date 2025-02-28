@@ -1,9 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvvldda8khmm4"]
+[gd_scene load_steps=13 format=3 uid="uid://cvvldda8khmm4"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/Diamond/diamond.gd" id="1_1rd86"]
 [ext_resource type="Texture2D" uid="uid://cicrv7jg4cai2" path="res://Assets/Sprites/diamond1.png" id="2_qwqi1"]
 [ext_resource type="Script" path="res://Scenes/ECS/health_component_diamond.gd" id="3_dce2e"]
 [ext_resource type="PackedScene" uid="uid://bwih4ruasd3kw" path="res://Scenes/ECS/health_component.tscn" id="3_qwm5q"]
+[ext_resource type="Texture2D" uid="uid://lx1dn27hioch" path="res://Assets/Sprites/diamond2.png" id="5_0rpju"]
+[ext_resource type="Texture2D" uid="uid://b0bwrgekddog2" path="res://Assets/Sprites/diamond3.png" id="6_jq7d6"]
+[ext_resource type="Texture2D" uid="uid://c6fegux4r46a2" path="res://Assets/Sprites/diamond4.png" id="7_hpiu6"]
 
 [sub_resource type="Animation" id="Animation_on8p0"]
 length = 0.001
@@ -48,6 +51,15 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_qwqi1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0rpju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jq7d6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_hpiu6")
 }],
 "loop": true,
 "name": &"default",
