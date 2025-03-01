@@ -15,134 +15,133 @@ const LIST_LAND : Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0,
 
 var list_vectors_clear_fog : Array[Vector2i] = get_array_circle(3)
 const LIST_VECTORS : Array[Vector2i] = [
-	-Vector2i.ONE, Vector2i.UP, Vector2i(1, -1),
-	Vector2i.LEFT, Vector2i.ZERO, Vector2i.RIGHT,
-	Vector2i(-1, 1), Vector2i.DOWN, Vector2i.ONE
+    -Vector2i.ONE, Vector2i.UP, Vector2i(1, -1),
+    Vector2i.LEFT, Vector2i.ZERO, Vector2i.RIGHT,
+    Vector2i(-1, 1), Vector2i.DOWN, Vector2i.ONE
 ]
 
 var endurance_tiles : Dictionary
 
 func _ready() -> void:
-	caves_noise.seed = randi()
-	
+    caves_noise.seed = randi()
+    
 func generate_chunk(pos : Vector2) -> void:
-	var center_tile : Vector2i = local_to_map(pos)
-	 # полные размеры карты и координаты начального тайла
-	var region_size : Vector2i = Vector2i(8, 8)
-	var list_new_tiles : Array[Vector2i] 
-	for x in region_size.x:
-		for y in region_size.y:
-			# позиция тайла относительно начала
-			var tile_position  : Vector2i = Vector2i(x, y) + center_tile - region_size / 2
-			
-			var tile_data_path   : TileData = layer_path.get_cell_tile_data(tile_position) 
-			var tile_data_floor  : TileData = layer_floor.get_cell_tile_data(tile_position) 
-			
-			#границы чанков
-			if x == 0 or y == 0 or\
-			x == region_size.x - 1 or y == region_size.y - 1:
-				if not path_is_nearby(tile_position):
-					layer_chunks.set_cell(tile_position, 3, Vector2i.ZERO)
-			else:
-				layer_chunks.erase_cell(tile_position)
-			
-			#туман появляется там, где не было игрока
-			if not tile_data_path:
-				layer_fog.set_cell(tile_position, 2, Vector2i.ZERO)
-				
-			var tile_data_fog : TileData = layer_fog.get_cell_tile_data(tile_position)
-			
-			var caves_altitude : float = caves_noise.get_noise_2d(tile_position.x, tile_position.y) * 10
-			#новые тайлы стен, где есть туман
-			if tile_data_fog and caves_altitude < 0.1:
-				if not randi_range(0, 49):
-					_spawn_diamond(tile_position)
-				else:
-					list_new_tiles.append(tile_position)
-					layer_wall.set_cell(tile_position, 0, Vector2i(0, 3))
-				
-				$LayerChunks2.set_cell(tile_position, 3, Vector2i.ZERO)
-				
-			#пол появляется там, где нету пола
-			if not tile_data_floor:
-				layer_floor.set_cell(tile_position, 1, LIST_LAND.pick_random())
-			
-	#layer_wall.set_cells_terrain_connect(list_new_tiles, 0, 0)
-	
-	for x in region_size.x + 2:
-		for y in region_size.y + 2:
-			# позиция тайла относительно начала
-			var tile_position : Vector2i = Vector2i(x, y) + center_tile - region_size / 2 - Vector2i.ONE
-			var tile_data_path   : TileData = layer_path.get_cell_tile_data(tile_position) 
-			#туман появляется там, где не было игрока
-			if not tile_data_path:
-				layer_fog.set_cell(tile_position, 2, Vector2i.ZERO)
+    var center_tile : Vector2i = local_to_map(pos)
+     # полные размеры карты и координаты начального тайла
+    var region_size : Vector2i = Vector2i(9, 9)
+    var list_new_tiles : Array[Vector2i] 
+    for x in region_size.x:
+        for y in region_size.y:
+            # позиция тайла относительно начала
+            var tile_position  : Vector2i = Vector2i(x, y) + center_tile - region_size / 2
+            
+            var tile_data_path   : TileData = layer_path.get_cell_tile_data(tile_position) 
+            var tile_data_floor  : TileData = layer_floor.get_cell_tile_data(tile_position) 
+            
+            #границы чанков
+            if x == 0 or y == 0 or\
+            x == region_size.x - 1 or y == region_size.y - 1:
+                if not tile_data_path:
+                    if x == 0:
+                        layer_fog.set_cell(tile_position + Vector2i.LEFT, 2, Vector2i.ZERO)
+                    if y == 0:
+                        layer_fog.set_cell(tile_position + Vector2i.UP, 2, Vector2i.ZERO)
+                    if x == region_size.x - 1:
+                        layer_fog.set_cell(tile_position + Vector2i.RIGHT, 2, Vector2i.ZERO)
+                    if y == region_size.y - 1:
+                        layer_fog.set_cell(tile_position + Vector2i.DOWN, 2, Vector2i.ZERO)
+                    
+                if not path_is_nearby(tile_position):
+                    layer_chunks.set_cell(tile_position, 3, Vector2i.ZERO)
+            else:
+                layer_chunks.erase_cell(tile_position)
+            
+            #туман появляется там, где не было игрока
+            if not tile_data_path:
+                layer_fog.set_cell(tile_position, 2, Vector2i.ZERO)
+                
+            var tile_data_fog : TileData = layer_fog.get_cell_tile_data(tile_position)
+            
+            var caves_altitude : float = caves_noise.get_noise_2d(tile_position.x, tile_position.y)
+            
+            #новые тайлы стен, где есть туман
+            if tile_data_fog and caves_altitude < 0.3:
+                if not randi_range(0, 49):
+                    _spawn_diamond(tile_position)
+                else:
+                    list_new_tiles.append(tile_position)
+                
+            #пол появляется там, где нету пола
+            if not tile_data_floor:
+                layer_floor.set_cell(tile_position, 1, LIST_LAND.pick_random())
+       
+    layer_wall.set_cells_terrain_connect(list_new_tiles, 0, 0)
 
 func path_is_nearby(tile_pos : Vector2i) -> bool:
-	for neighbor in LIST_VECTORS:
-		var tile_data_path : TileData = layer_path.get_cell_tile_data(neighbor + tile_pos) 
-		if tile_data_path:
-			return true
-	return false
+    for neighbor in LIST_VECTORS:
+        var tile_data_path : TileData = layer_path.get_cell_tile_data(neighbor + tile_pos) 
+        if tile_data_path:
+            return true
+    return false
 
 func _spawn_diamond(tile_pos : Vector2i) -> void:
-	var new_diamond : StaticBody2D = DIAMOND_SCENE.instantiate()
-	get_tree().current_scene.add_child(new_diamond)
-	
-	new_diamond.global_position = map_to_local(tile_pos)
-	
+    var new_diamond : StaticBody2D = DIAMOND_SCENE.instantiate()
+    get_tree().current_scene.add_child(new_diamond)
+    
+    new_diamond.global_position = map_to_local(tile_pos)
+    
 func clear_fog(tile_position : Vector2i) -> void:
-	layer_fog.erase_cell(tile_position) 
-	layer_path.set_cell(tile_position, 3, Vector2i.ZERO)
-	
+    layer_fog.erase_cell(tile_position) 
+    layer_path.set_cell(tile_position, 3, Vector2i.ZERO)
+    
 func breaking_tile(tile_pos : Vector2i) -> void:
-	var tile_date = layer_wall.get_cell_tile_data(tile_pos) # получает данные о тайле
-	if tile_date:
-		if tile_pos not in endurance_tiles:
-			endurance_tiles[tile_pos] = 1
-		endurance_tiles[tile_pos] -= 1
-		if endurance_tiles[tile_pos] <= 0:
-			layer_wall.set_cells_terrain_connect([tile_pos], 0, -1, false)
-			endurance_tiles.erase(tile_pos)
-	
+    var tile_date = layer_wall.get_cell_tile_data(tile_pos) # получает данные о тайле
+    if tile_date:
+        if tile_pos not in endurance_tiles:
+            endurance_tiles[tile_pos] = 2
+        endurance_tiles[tile_pos] -= 1
+        if endurance_tiles[tile_pos] <= 0:
+            layer_wall.set_cells_terrain_connect([tile_pos], 0, -1, false)
+            endurance_tiles.erase(tile_pos)
+    
 func get_array_circle(radius : int) -> Array[Vector2i]:
-	var new_array : Array[Vector2i]
-	var radius_range : Array = range(-radius, radius)
-	for y in radius_range:
-		for x in radius_range:
-			if x ** 2 + y ** 2 <= (radius - 1) ** 2 and x ** 2 + y ** 2 >= (radius - 2) ** 2:
-				new_array.append(Vector2i(x, y))
-	return new_array
-	
+    var new_array : Array[Vector2i]
+    var radius_range : Array = range(-radius, radius)
+    for y in radius_range:
+        for x in radius_range:
+            if x ** 2 + y ** 2 <= (radius - 1) ** 2 and x ** 2 + y ** 2 >= (radius - 2) ** 2:
+                new_array.append(Vector2i(x, y))
+    return new_array
+    
 func get_line_tiles(start: Vector2, end: Vector2) -> Array[Vector2]:
-	var tiles : Array[Vector2] = []
-	
-	var dx : int = abs(end.x - start.x)
-	var dy : int = abs(end.y - start.y)
-	
-	var sx : int = 1 if start.x < end.x else -1
-	var sy : int = 1 if start.y < end.y else -1
-	
-	var err : int = dx - dy
-	
-	while true:
-		tiles.append(Vector2(start.x, start.y))  # Добавляем текущую точку в массив
-		
-		if start.x == end.x && start.y == end.y:  # Если достигли конечной точки, выходим
-			break
-		
-		var e2 = 2 * err
-		if e2 > -dy:
-			err -= dy
-			start.x += sx
-		if e2 < dx:
-			err += dx
-			start.y += sy
-	
-	return tiles
-			  
+    var tiles : Array[Vector2] = []
+    
+    var dx : int = abs(end.x - start.x)
+    var dy : int = abs(end.y - start.y)
+    
+    var sx : int = 1 if start.x < end.x else -1
+    var sy : int = 1 if start.y < end.y else -1
+    
+    var err : int = dx - dy
+    
+    while true:
+        tiles.append(Vector2(start.x, start.y))  # Добавляем текущую точку в массив
+        
+        if start.x == end.x && start.y == end.y:  # Если достигли конечной точки, выходим
+            break
+        
+        var e2 = 2 * err
+        if e2 > -dy:
+            err -= dy
+            start.x += sx
+        if e2 < dx:
+            err += dx
+            start.y += sy
+    
+    return tiles
+              
 func map_to_local(pos : Vector2i) -> Vector2:
-	return layer_floor.map_to_local(pos)
+    return layer_floor.map_to_local(pos)
 
 func local_to_map(pos : Vector2) -> Vector2i:
-	return layer_floor.local_to_map(pos)
+    return layer_floor.local_to_map(pos)

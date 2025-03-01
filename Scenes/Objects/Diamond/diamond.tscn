@@ -137,7 +137,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cuaua"]
-radius = 4.0
+radius = 3.0
 
 [node name="Diamond" type="StaticBody2D" groups=["Diamonds"]]
 z_index = 1
