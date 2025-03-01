@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bv546m8milc82"]
+[gd_scene load_steps=16 format=3 uid="uid://bv546m8milc82"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_44l1p"]
 [ext_resource type="Script" path="res://Scenes/tile_map.gd" id="3_ed4oi"]
@@ -49,6 +49,9 @@ font = ExtResource("9_o28ag")
 font_size = 4
 font_color = Color(0.607843, 0.780392, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6t46"]
+bg_color = Color(0.607843, 0.780392, 0, 1)
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_uftqc"]
 frequency = 0.1
 
@@ -73,6 +76,25 @@ offset_bottom = 5.0
 grow_horizontal = 0
 text = "0"
 label_settings = SubResource("LabelSettings_yrgut")
+
+[node name="ButtonAgain" type="Button" parent="UI"]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -5.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("9_o28ag")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_e6t46")
+text = "Again"
 
 [node name="TileMap" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -111,4 +133,5 @@ metadata/_edit_lock_ = true
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(64, 64)
 
+[connection signal="pressed" from="UI/ButtonAgain" to="UI" method="_on_button_again_pressed"]
 [connection signal="hp_changed" from="Player" to="UI" method="_on_player_hp_changed"]

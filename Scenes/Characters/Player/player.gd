@@ -4,11 +4,10 @@ class_name Player extends Character
 
 @export var regeneration_time : float = 5
 
-@onready var hitbox : Area2D = get_node("RotateWeapon/Hitbox")
-@onready var rotate_weapon : Node2D = get_node("RotateWeapon")
+@onready var hitbox : Area2D = get_node("Hitbox")
 @onready var dialog : Dialog = get_node("Dialog")
 @onready var health_regeneration_timer : Timer = get_node("%HealthRegeneration")
-@onready var health_component : HealthComponent = get_node("HealthComponent")
+@onready var health_component          : HealthComponent = get_node("HealthComponent")
 
 var nearest_chest : Chest
 var current_tile_position  : Vector2i
@@ -24,14 +23,12 @@ func _ready() -> void:
     health_regeneration_timer.wait_time = regeneration_time
 
 func _process(_delta: float) -> void:
-    var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
-
-    if mouse_direction.x > 0 and animated_sprite.flip_h:
+    if move_direction.x > 0 and animated_sprite.flip_h:
         animated_sprite.flip_h = false
-    elif mouse_direction.x < 0 and not animated_sprite.flip_h:
+    elif move_direction.x < 0 and not animated_sprite.flip_h:
         animated_sprite.flip_h = true
     
-    hitbox.kickback_direction = mouse_direction
+    hitbox.kickback_direction = move_direction
     
     current_tile_position = tile_map.local_to_map(global_position)
     if previous_tile_position != current_tile_position:
@@ -40,15 +37,14 @@ func _process(_delta: float) -> void:
 func get_input():
     move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
     
-    rotate_weapon.look_at(get_global_mouse_position())
+    hitbox.position = tile_map.map_to_local(move_direction) - Vector2(4, 4)
     
-    if Input.is_action_pressed("mouse_button_left") and state_machine.state != state_machine.states.attack:
+    if move_direction and Input.is_action_pressed("F") and state_machine.state != state_machine.states.attack:
         state_machine.set_state(state_machine.states.attack)
-        var tile_position : Vector2i = tile_map.local_to_map(get_global_mouse_position())
-        
+        var tile_position : Vector2i = tile_map.local_to_map(hitbox.global_position)
         tile_map.breaking_tile(tile_position)
-    
-    if nearest_chest and Input.is_action_pressed("interact"):
+        
+    if nearest_chest and Input.is_action_pressed("F"):
         if not nearest_chest.is_opened:
             if inventory['keys'] > 0:
                 inventory['keys'] -= 1
@@ -78,6 +74,7 @@ func clear_fog() -> void:
         tile_map.generate_chunk(global_position)
                 
 func set_current_tile_pos(new_current_pos : Vector2i) -> void:
+    current_tile_position = new_current_pos
     clear_fog()
     emit_signal("current_tile_pos_changed", current_tile_position) 
     

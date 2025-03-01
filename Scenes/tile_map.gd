@@ -10,6 +10,7 @@ extends Node2D
 @onready var layer_chunks : TileMapLayer = get_node("LayerChunks")
 
 const DIAMOND_SCENE : PackedScene = preload("res://Scenes/Objects/Diamond/diamond.tscn")
+const BEATLE_SCENE  : PackedScene = preload("res://Scenes/Characters/Enemies/Beatle/beatle.tscn")
 
 const LIST_LAND : Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]
 
@@ -65,11 +66,18 @@ func generate_chunk(pos : Vector2) -> void:
             var caves_altitude : float = caves_noise.get_noise_2d(tile_position.x, tile_position.y)
             
             #новые тайлы стен, где есть туман
-            if tile_data_fog and caves_altitude < 0.3:
-                if not randi_range(0, 49):
-                    _spawn_diamond(tile_position)
+            if tile_data_fog:
+                if caves_altitude < 0.3:
+                    if not randi_range(0, 49):
+                        _spawn_diamond(tile_position)
+                    else:
+                        list_new_tiles.append(tile_position)
                 else:
-                    list_new_tiles.append(tile_position)
+                    if not randi_range(0, 29):
+                        _spawn_diamond(tile_position)
+                    else:
+                        if not randi_range(0, 19):
+                            _spawn_beatle(tile_position)
                 
             #пол появляется там, где нету пола
             if not tile_data_floor:
@@ -89,6 +97,12 @@ func _spawn_diamond(tile_pos : Vector2i) -> void:
     get_tree().current_scene.add_child(new_diamond)
     
     new_diamond.global_position = map_to_local(tile_pos)
+    
+func _spawn_beatle(tile_pos : Vector2i) -> void:
+    var new_beatle : CharacterBody2D = BEATLE_SCENE.instantiate()
+    get_tree().current_scene.add_child(new_beatle)
+    
+    new_beatle.global_position = map_to_local(tile_pos)
     
 func clear_fog(tile_position : Vector2i) -> void:
     layer_fog.erase_cell(tile_position) 

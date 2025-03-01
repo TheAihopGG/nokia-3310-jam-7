@@ -121,7 +121,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RotateWeapon/Hitbox/CollisionShape2D:disabled")
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -133,19 +133,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/path = NodePath("Sounds/Hurt:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sounds/Hurt:playing")
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -184,7 +184,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("RotateWeapon/Hitbox/CollisionShape2D:disabled")
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -355,7 +355,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ancj"]
-radius = 3.0
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rbr0f"]
 radius = 7.0
@@ -376,7 +376,7 @@ debug_color = Color(0.947358, 3.56168e-06, 0.583463, 0.42)
 
 [node name="AnimatedSprite2D" parent="." index="3"]
 sprite_frames = SubResource("SpriteFrames_eep3v")
-animation = &"idle"
+animation = &"attack"
 
 [node name="AnimationPlayer" parent="." index="4"]
 libraries = {
@@ -389,16 +389,13 @@ libraries = {
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
-[node name="RotateWeapon" type="Node2D" parent="." index="7"]
-
-[node name="Hitbox" type="Area2D" parent="RotateWeapon" index="0"]
+[node name="Hitbox" type="Area2D" parent="." index="7"]
 position = Vector2(7, 0)
 script = ExtResource("4_8g25m")
 delay_attack = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RotateWeapon/Hitbox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CircleShape2D_7ancj")
-disabled = true
 metadata/_edit_lock_ = true
 
 [node name="InteractionArea" type="Area2D" parent="." index="8"]
