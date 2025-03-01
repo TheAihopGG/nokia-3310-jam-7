@@ -12,7 +12,7 @@ class_name Player extends Character
 
 var nearest_chest : Chest
 var current_tile_position  : Vector2i
-var previous_tile_position : Vector2i : set = set_current_tile_pos
+var previous_tile_position : Vector2i
 var health_regeneration_enabled : bool = true
 
 signal hp_changed(new_hp : int)
@@ -22,10 +22,7 @@ func _ready() -> void:
 	GlobalVars.player = self
 	current_tile_position = tile_map.layer_fog.local_to_map(global_position)
 	health_regeneration_timer.wait_time = regeneration_time
-<<<<<<< HEAD
-=======
 	clear_fow()
->>>>>>> 02c321873ca490d7c670dd05862e55c911675239
 
 func _process(_delta: float) -> void:
 	var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
@@ -38,14 +35,8 @@ func _process(_delta: float) -> void:
 	hitbox.kickback_direction = mouse_direction
 	
 	current_tile_position = tile_map.local_to_map(global_position)
-<<<<<<< HEAD
-	
-	if previous_tile_position != current_tile_position:
-		previous_tile_position = current_tile_position
-=======
 	if current_tile_position != previous_tile_position:
 		clear_fow()
->>>>>>> 02c321873ca490d7c670dd05862e55c911675239
 		
 func get_input():
 	move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -65,38 +56,6 @@ func get_input():
 				nearest_chest.open()
 			else:
 				dialog.say(["You need a key"])
-<<<<<<< HEAD
-				
-func set_current_tile_pos(new_current_pos : Vector2i) -> void:
-	previous_tile_position = new_current_pos
-	clear_fog()
-	emit_signal("current_tile_pos_changed", previous_tile_position)
-	
-func clear_fog() -> void:
-	var start_time = Time.get_ticks_msec()
-	var generating_chunk : bool = false
-	for neighbor_position in tile_map.list_vectors_clear_fog:
-		var clearing_fog  : bool = true
-		var neighbor_tile : Vector2i = current_tile_position + neighbor_position
-		
-		for tile_position in tile_map.get_line_tiles(current_tile_position, neighbor_tile):
-			if clearing_fog:
-				tile_map.clear_fog(tile_position)
-			
-			var tile_data_wall : TileData = tile_map.layer_wall.get_cell_tile_data(tile_position)
-			if tile_data_wall != null:
-				clearing_fog = false
-			
-			var tile_data_chunks : TileData = tile_map.layer_chunks.get_cell_tile_data(tile_position)
-			if tile_data_chunks:
-				generating_chunk = true
-				
-	if generating_chunk:
-		tile_map.generate_chunk(global_position)
-		
-	var end_time = Time.get_ticks_msec()
-	print("Time taken: ", end_time - start_time, "ms")
-=======
 		
 func clear_fow() -> void:
 	previous_tile_position = current_tile_position
@@ -112,7 +71,6 @@ func clear_fow() -> void:
 			else:
 				tile_map.layer_fog.erase_cell(tile) 
 				break
->>>>>>> 02c321873ca490d7c670dd05862e55c911675239
 	
 func _on_health_component_hp_changed(new_hp: Variant) -> void:
 	emit_signal("hp_changed", new_hp)
