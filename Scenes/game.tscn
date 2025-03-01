@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://bv546m8milc82"]
+[gd_scene load_steps=38 format=4 uid="uid://bv546m8milc82"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_44l1p"]
 [ext_resource type="Script" path="res://addons/gaea/renderers/2D/threaded_tilemap_gaea_renderer.gd" id="3_7ddka"]
@@ -131,6 +131,11 @@ Vector2i(3, 3): 0.1
 }
 modifiers = Array[ExtResource("5_77u47")]([SubResource("Resource_gc0br"), SubResource("Resource_flpss")])
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7ne6l"]
+vertices = PackedVector2Array(342, 110, -6.99219, 110, -6.00781, -654.023, 342, -654.969)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -664, 352, -665, 352, 120, -17, 120)])
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hrol5"]
 atlas = ExtResource("8_kujqx")
 region = Rect2(63, 0, 21, 8)
@@ -182,14 +187,20 @@ metadata/_edit_lock_ = true
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Tools"]
 stream = ExtResource("11_qw7yh")
 volume_db = 24.0
+metadata/_edit_lock_ = true
 
-[node name="ThreadedTilemapGaeaRenderer" type="Node" parent="Tools" node_paths=PackedStringArray("tile_map_layers")]
+[node name="ThreadedTilemapGaeaRenderer" type="Node" parent="Tools" node_paths=PackedStringArray("tile_map_layers", "generator")]
 script = ExtResource("3_7ddka")
 tile_map_layers = [NodePath("../../TileMap/LayerFloor"), NodePath("../../TileMap/LayerWall")]
+generator = NodePath("../WalkerGenerator")
 
 [node name="WalkerGenerator" type="Node" parent="Tools"]
 script = ExtResource("4_jastd")
 settings = SubResource("Resource_n1v8r")
+generate_on_ready = false
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Tools"]
+navigation_polygon = SubResource("NavigationPolygon_7ne6l")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("6_bqsbj")
@@ -241,34 +252,17 @@ position = Vector2(62, 46)
 position = Vector2(48, -19)
 
 [node name="Chest" parent="Items" instance=ExtResource("8_y5kmh")]
-position = Vector2(50, 14)
+position = Vector2(141, 79)
 
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(69, 59)
-regeneration_time = 5.0
 
 [node name="Beatle" parent="." instance=ExtResource("12_0d28c")]
-position = Vector2(68, 82)
-max_speed = 20
-
-[node name="Beatle2" parent="." instance=ExtResource("12_0d28c")]
-position = Vector2(106, 51)
-max_speed = 20
-
-[node name="Beatle3" parent="." instance=ExtResource("12_0d28c")]
-position = Vector2(145, -35)
-max_speed = 20
-
-[node name="Beatle4" parent="." instance=ExtResource("12_0d28c")]
-position = Vector2(85, -37)
-max_speed = 20
-
-[node name="Beatle5" parent="." instance=ExtResource("12_0d28c")]
-position = Vector2(131, -14)
+position = Vector2(58, -51)
 max_speed = 20
 
 [node name="Beatle7" parent="." instance=ExtResource("12_0d28c")]
-position = Vector2(113, 22)
+position = Vector2(117, -58)
 max_speed = 20
 
 [connection signal="area_rendered" from="Tools/ThreadedTilemapGaeaRenderer" to="." method="_on_threaded_tilemap_gaea_renderer_area_rendered"]

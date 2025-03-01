@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bcbgtufmed15g"]
+[gd_scene load_steps=33 format=3 uid="uid://bcbgtufmed15g"]
 
 [ext_resource type="PackedScene" uid="uid://bhw7ii3pd1638" path="res://Scenes/Characters/character.tscn" id="1_lh6t2"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/player.gd" id="2_lvdns"]
@@ -145,22 +145,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/path = NodePath("Sounds/Hurt:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sounds/Hurt:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -262,7 +250,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_uqd12"]
 resource_name = "hurt"
-step = 0.0363
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -290,34 +278,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:visible")
+tracks/2/path = NodePath("Sounds/Hurt:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sounds/Hurt:playing")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -380,34 +344,6 @@ tracks/1/keys = {
 "values": ["move"]
 }
 
-[sub_resource type="Animation" id="Animation_30rcw"]
-length = 0.375
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["walk"]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i4yln"]
 _data = {
 "RESET": SubResource("Animation_vpui7"),
@@ -415,8 +351,7 @@ _data = {
 "dead": SubResource("Animation_v3d6w"),
 "hurt": SubResource("Animation_uqd12"),
 "idle": SubResource("Animation_ng1y3"),
-"move": SubResource("Animation_1isv0"),
-"walk": SubResource("Animation_30rcw")
+"move": SubResource("Animation_1isv0")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ancj"]
@@ -441,8 +376,7 @@ debug_color = Color(0.947358, 3.56168e-06, 0.583463, 0.42)
 
 [node name="AnimatedSprite2D" parent="." index="3"]
 sprite_frames = SubResource("SpriteFrames_eep3v")
-animation = &"attack"
-frame = 5
+animation = &"idle"
 
 [node name="AnimationPlayer" parent="." index="4"]
 libraries = {

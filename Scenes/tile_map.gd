@@ -11,8 +11,8 @@ var list_vectors : Array[Vector2i] = get_array_circle(4)
 
 var endurance_tiles : Dictionary
 
-func _ready() -> void:
-    layer_fog.show()
+
+    #generate_chunk()
     
 func generate_chunk() -> void:
      # полные размеры карты и координаты начального тайла
@@ -26,11 +26,8 @@ func generate_chunk() -> void:
                 x + region_position.x,
                 y + region_position.y,
             )
-            var tile_data_wall : TileData = layer_wall.get_cell_tile_data(tile_position) 
-            if not tile_data_wall:
-                layer_floor.set_cell(tile_position, 1, LIST_LAND.pick_random())
-            else:
-                endurance_tiles[tile_position] = 2
+            layer_floor.set_cell(tile_position, 1, LIST_LAND.pick_random())
+            #var tile_data_wall : TileData = layer_wall.get_cell_tile_data(tile_position) 
 
 func breaking_tile(tile_pos : Vector2i) -> void:
     var tile_date = layer_wall.get_cell_tile_data(tile_pos) # получает данные о тайле
@@ -39,7 +36,6 @@ func breaking_tile(tile_pos : Vector2i) -> void:
             endurance_tiles[tile_pos] = 2
         endurance_tiles[tile_pos] -= 1
         if endurance_tiles[tile_pos] <= 0:
-            layer_floor.set_cell(tile_pos, 1, LIST_LAND.pick_random())
             layer_wall.set_cells_terrain_connect([tile_pos], 0, -1, false)
             endurance_tiles.erase(tile_pos)
     
