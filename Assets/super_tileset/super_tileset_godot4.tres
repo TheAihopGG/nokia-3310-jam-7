@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://iqf6vft5b5oj"]
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://iqf6vft5b5oj"]
 
 [ext_resource type="Texture2D" uid="uid://xbys5ujtmxau" path="res://Assets/super_tileset/super_tileset.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://d2cyn47h41bhu" path="res://Assets/TilesLand.png" id="2_47fy2"]
 [ext_resource type="Texture2D" uid="uid://cs44dsq28hnuh" path="res://Assets/Fog.png" id="3_blvqq"]
+[ext_resource type="Texture2D" uid="uid://pgc40wetux28" path="res://Assets/test.png" id="4_ui7sc"]
 
 [sub_resource type="TileSetAtlasSource" id="2"]
 resource_name = "Auto1"
@@ -458,6 +459,11 @@ texture = ExtResource("3_blvqq")
 texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ew5o"]
+texture = ExtResource("4_ui7sc")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+
 [resource]
 tile_size = Vector2i(8, 8)
 physics_layer_0/collision_layer = 1
@@ -468,3 +474,4 @@ navigation_layer_0/layers = 1
 sources/0 = SubResource("2")
 sources/1 = SubResource("TileSetAtlasSource_pl83u")
 sources/2 = SubResource("TileSetAtlasSource_6ebxs")
+sources/3 = SubResource("TileSetAtlasSource_2ew5o")

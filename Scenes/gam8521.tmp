@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bv546m8milc82"]
+[gd_scene load_steps=15 format=3 uid="uid://bv546m8milc82"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_44l1p"]
 [ext_resource type="Script" path="res://Scenes/tile_map.gd" id="3_ed4oi"]
@@ -50,9 +50,6 @@ font = ExtResource("9_o28ag")
 font_size = 4
 font_color = Color(0.607843, 0.780392, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ybtxk"]
-frequency = 0.05
-
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_44l1p")
@@ -85,7 +82,6 @@ label_settings = SubResource("LabelSettings_yrgut")
 [node name="TileMap" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("3_ed4oi")
-caves_noise = SubResource("FastNoiseLite_ybtxk")
 metadata/_edit_lock_ = true
 
 [node name="LayerFloor" type="TileMapLayer" parent="TileMap"]
@@ -104,26 +100,7 @@ z_index = 100
 tile_set = ExtResource("4_a3nxx")
 metadata/_edit_lock_ = true
 
-[node name="LayerPath" type="TileMapLayer" parent="TileMap"]
-visible = false
-modulate = Color(1, 0, 1, 1)
-z_index = 100
-tile_set = ExtResource("4_a3nxx")
-metadata/_edit_lock_ = true
-
-[node name="LayerChunks" type="TileMapLayer" parent="TileMap"]
-visible = false
-z_index = 100
-tile_set = ExtResource("4_a3nxx")
-metadata/_edit_lock_ = true
-
-[node name="LayerChunks2" type="TileMapLayer" parent="TileMap"]
-modulate = Color(1, 0, 1, 1)
-z_index = 100
-tile_set = ExtResource("4_a3nxx")
-metadata/_edit_lock_ = true
-
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
-position = Vector2(64, 64)
+position = Vector2(69, 59)
 
 [connection signal="hp_changed" from="Player" to="UI" method="_on_player_hp_changed"]
