@@ -197,6 +197,7 @@ generator = NodePath("../WalkerGenerator")
 [node name="WalkerGenerator" type="Node" parent="Tools"]
 script = ExtResource("4_jastd")
 settings = SubResource("Resource_n1v8r")
+tile_size = Vector2i(8, 8)
 generate_on_ready = false
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Tools"]
