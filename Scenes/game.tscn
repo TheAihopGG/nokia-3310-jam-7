@@ -244,7 +244,8 @@ position = Vector2(48, -19)
 position = Vector2(50, 14)
 
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
-position = Vector2(20, 30)
+position = Vector2(69, 59)
+regeneration_time = 5.0
 
 [node name="Beatle" parent="." instance=ExtResource("12_0d28c")]
 position = Vector2(68, 82)

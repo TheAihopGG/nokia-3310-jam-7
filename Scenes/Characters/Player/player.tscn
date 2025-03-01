@@ -427,6 +427,7 @@ radius = 7.0
 
 [node name="Player" instance=ExtResource("1_lh6t2")]
 script = ExtResource("2_lvdns")
+regeneration_time = 5.0
 acceleration = 10
 max_speed = 30
 
@@ -477,6 +478,13 @@ debug_color = Color(0.40239, 0.467644, 1, 0.42)
 [node name="Hurt" type="AudioStreamPlayer2D" parent="Sounds" index="0"]
 stream = ExtResource("9_ohlj8")
 
+[node name="Timers" type="Node" parent="." index="10"]
+
+[node name="HealthRegeneration" type="Timer" parent="Timers" index="0"]
+unique_name_in_owner = true
+autostart = true
+
 [connection signal="hp_changed" from="HealthComponent" to="." method="_on_health_component_hp_changed"]
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
 [connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]
+[connection signal="timeout" from="Timers/HealthRegeneration" to="." method="_on_health_regeneration_timeout"]

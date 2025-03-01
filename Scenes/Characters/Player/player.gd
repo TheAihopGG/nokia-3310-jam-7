@@ -2,19 +2,25 @@
 class_name Player extends Character
 
 
+@export var regeneration_time : float = 5
+
 @onready var hitbox : Area2D = get_node("RotateWeapon/Hitbox")
 @onready var rotate_weapon : Node2D = get_node("RotateWeapon")
 @onready var dialog : Dialog = get_node("Dialog")
+@onready var health_regeneration_timer : Timer = get_node("%HealthRegeneration")
+@onready var health_component : HealthComponent = get_node("HealthComponent")
 
 var nearest_chest : Chest
 var current_tile_position  : Vector2i
 var previous_tile_position : Vector2i
+var health_regeneration_enabled : bool = true
 
 signal hp_changed(new_hp : int)
 
 func _ready() -> void:
 	GlobalVars.player = self
 	current_tile_position = tile_map.layer_fog.local_to_map(global_position)
+	health_regeneration_timer.wait_time = regeneration_time
 	clear_fow()
 
 func _process(_delta: float) -> void:
@@ -80,3 +86,7 @@ func _on_interaction_area_body_entered(body: Node2D) -> void:
 func _on_interaction_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group('Chests'):
 		nearest_chest = null
+
+func _on_health_regeneration_timeout() -> void:
+	if health_regeneration_enabled and health_component.health_points < health_component.max_health_points:
+		health_component.health_points += 1
