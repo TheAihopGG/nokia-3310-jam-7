@@ -5,6 +5,7 @@ extends Node2D
 @onready var player   : CharacterBody2D = get_node("Player")
 @onready var selected : Sprite2D = get_node("Selected")
 
+
 func _ready() -> void:
 	player.clear_fog()
 	tile_map.generate_chunk(player.global_position)

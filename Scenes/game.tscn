@@ -82,25 +82,64 @@ grow_horizontal = 0
 text = "0"
 label_settings = SubResource("LabelSettings_yrgut")
 
-[node name="ButtonAgain" type="Button" parent="UI"]
+[node name="LabelAgain" type="Label" parent="UI"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -5.0
+offset_right = 20.0
+offset_bottom = -1.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.168627, 0.247059, 0.0352941, 1)
+theme_override_fonts/font = ExtResource("9_o28ag")
+theme_override_font_sizes/font_size = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_e6t46")
+text = "Again(1)"
+
+[node name="LabelUpgrate" type="Label" parent="UI"]
+unique_name_in_owner = true
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -9.0
+offset_left = -20.0
 offset_top = -5.0
 offset_right = -1.0
 offset_bottom = -1.0
 grow_horizontal = 0
 grow_vertical = 0
-focus_mode = 0
 theme_override_colors/font_color = Color(0.168627, 0.247059, 0.0352941, 1)
 theme_override_fonts/font = ExtResource("9_o28ag")
-theme_override_font_sizes/font_size = 6
-theme_override_styles/pressed = SubResource("StyleBoxFlat_e6t46")
+theme_override_font_sizes/font_size = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_e6t46")
-text = "Again"
+text = "Upgrate(2)"
+
+[node name="LabelNeedDiamonds" type="Label" parent="UI"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -11.0
+offset_right = 12.0
+offset_bottom = 11.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.168627, 0.247059, 0.0352941, 1)
+theme_override_fonts/font = ExtResource("9_o28ag")
+theme_override_font_sizes/font_size = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_e6t46")
+text = "You need 25 diamonds"
+autowrap_mode = 1
+
+[node name="Timer" type="Timer" parent="UI/LabelNeedDiamonds"]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+autostart = true
 
 [node name="TileMap" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -139,5 +178,5 @@ metadata/_edit_lock_ = true
 [node name="Player" parent="." instance=ExtResource("3_sqq7q")]
 position = Vector2(64, 64)
 
-[connection signal="pressed" from="UI/ButtonAgain" to="UI" method="_on_button_again_pressed"]
+[connection signal="timeout" from="UI/LabelNeedDiamonds/Timer" to="UI" method="_on_timer_timeout"]
 [connection signal="hp_changed" from="Player" to="UI" method="_on_player_hp_changed"]

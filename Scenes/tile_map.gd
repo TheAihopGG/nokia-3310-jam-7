@@ -115,8 +115,8 @@ func breaking_tile(tile_pos : Vector2i) -> void:
 		if tile_pos not in endurance_tiles:
 			endurance_tiles[tile_pos] = [6, spawn_object(BREAKING_SCENE, tile_pos)]
 			
-		endurance_tiles[tile_pos][0] -= 1
-		endurance_tiles[tile_pos][1].frame += 3
+		endurance_tiles[tile_pos][0] -= 1 * GlobalVars.level_pickaxe
+		endurance_tiles[tile_pos][1].frame += 1 * GlobalVars.level_pickaxe
 		
 		if endurance_tiles[tile_pos][0] <= 0:
 			layer_wall.set_cells_terrain_connect([tile_pos], 0, -1, false)
