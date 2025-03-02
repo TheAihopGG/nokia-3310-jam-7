@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://bhw7ii3pd1638" path="res://Scenes/Characters/character.tscn" id="1_lh6t2"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/player.gd" id="2_lvdns"]
-[ext_resource type="Texture2D" uid="uid://c84du0bp7ghvv" path="res://Assets/Sprites/player_attack.png" id="3_dqvlk"]
+[ext_resource type="Texture2D" uid="uid://c84du0bp7ghvv" path="res://Assets/Sprites/Characters/Player/player_attack.png" id="3_dqvlk"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerFSM.gd" id="3_w4wpn"]
 [ext_resource type="Script" path="res://Scenes/ECS/hitbox.gd" id="4_8g25m"]
-[ext_resource type="Texture2D" uid="uid://ch27c2afpl1c7" path="res://Assets/Sprites/player_idle.png" id="4_nxt3c"]
+[ext_resource type="Texture2D" uid="uid://ch27c2afpl1c7" path="res://Assets/Sprites/Characters/Player/player_idle.png" id="4_nxt3c"]
 [ext_resource type="PackedScene" uid="uid://d0odghx6qv0gp" path="res://Scenes/Characters/Dialog/dialog.tscn" id="4_x2o4e"]
-[ext_resource type="Texture2D" uid="uid://da2amfe33k0rl" path="res://Assets/Sprites/player_walk.png" id="5_ecvio"]
+[ext_resource type="Texture2D" uid="uid://da2amfe33k0rl" path="res://Assets/Sprites/Characters/Player/player_walk.png" id="5_ecvio"]
 [ext_resource type="AudioStream" uid="uid://belshs3hw7l3l" path="res://Assets/Sounds/hit1.wav" id="9_ohlj8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_54mox"]
