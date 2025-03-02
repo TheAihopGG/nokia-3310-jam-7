@@ -157,5 +157,5 @@ func get_line_tiles(start: Vector2, end: Vector2) -> Array[Vector2]:
 func map_to_local(pos : Vector2i) -> Vector2:
 	return layer_floor.map_to_local(pos)
 
-func local_to_map(pos : Vector2) -> Vector2i:
+func local_to_map(pos : Vector2) -> Vector2:
 	return layer_floor.local_to_map(pos)
