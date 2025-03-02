@@ -18,6 +18,7 @@ animations = [{
 size = Vector2(2, 10)
 
 [node name="Item" type="StaticBody2D" groups=["Items"]]
+collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_si12y")
 

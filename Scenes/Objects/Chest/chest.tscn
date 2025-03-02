@@ -31,6 +31,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_631t2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sounds/Open:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_ud3lv"]
 length = 0.2
 tracks/0/type = "value"
@@ -97,21 +112,6 @@ tracks/2/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_631t2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sounds/Open:playing")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pfviq"]
 _data = {
 "RESET": SubResource("Animation_631t2"),
@@ -123,6 +123,8 @@ _data = {
 size = Vector2(14, 14)
 
 [node name="Chest" type="StaticBody2D" groups=["Chests"]]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_pjxs1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Chests"]]

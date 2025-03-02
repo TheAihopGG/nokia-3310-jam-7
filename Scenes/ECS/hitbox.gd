@@ -23,12 +23,10 @@ func _ready():
     assert(collision != null)
     
 func _on_body_entered(body):
-    if body == null: return
     body_inside = true
     timer.start(delay_attack)
     # Пока зона урона внутри тела, будет наноситься урон с частотой в timer
     while body_inside:
-        if body == null: return
         _collide(body)
         await timer.timeout
 
@@ -37,7 +35,7 @@ func _on_body_exited(_body):
     timer.stop()
 
 func _collide(body : Node2D) -> void:
-    if not body or not body.has_node("HealthComponent") or body == parent:
+    if body == null or not body.has_node("HealthComponent") or body == parent:
         pass
     else:
         body.get_node("HealthComponent").take_damage(parent, damage, kickback_direction, kickback_force)
