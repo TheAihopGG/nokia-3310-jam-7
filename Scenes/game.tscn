@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bcbgtufmed15g" path="res://Scenes/Characters/Player/player.tscn" id="3_sqq7q"]
 [ext_resource type="TileSet" uid="uid://iqf6vft5b5oj" path="res://Assets/super_tileset/super_tileset_godot4.tres" id="4_a3nxx"]
 [ext_resource type="Script" path="res://Scenes/UI/ui.gd" id="6_bqsbj"]
-[ext_resource type="Texture2D" uid="uid://bb01yqudxei3q" path="res://Assets/Sprites/health.png" id="8_kujqx"]
+[ext_resource type="Texture2D" uid="uid://bb01yqudxei3q" path="res://Assets/Sprites/UI/health.png" id="8_kujqx"]
 [ext_resource type="FontFile" uid="uid://unpc42xsvs48" path="res://Assets/Fonts/tiny/tiny.ttf" id="9_o28ag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hrol5"]
