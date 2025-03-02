@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3fn2rnhwmuf8"]
+
+[ext_resource type="Script" path="res://Scenes/Castscenes/castscene.gd" id="1_cwstk"]
+
+[node name="Castscene" type="Node2D"]
+script = ExtResource("1_cwstk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
