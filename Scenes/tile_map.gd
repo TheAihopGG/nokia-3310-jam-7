@@ -9,8 +9,11 @@ extends Node2D
 @onready var layer_path   : TileMapLayer = get_node("LayerPath")
 @onready var layer_chunks : TileMapLayer = get_node("LayerChunks")
 
-const DIAMOND_SCENE : PackedScene = preload("res://Scenes/Objects/Diamond/diamond.tscn")
-const BEATLE_SCENE  : PackedScene = preload("res://Scenes/Characters/Enemies/Beatle/beatle.tscn")
+const DIAMOND_SCENE  : PackedScene = preload("res://Scenes/Objects/Diamond/diamond.tscn")
+const BEATLE_SCENE   : PackedScene = preload("res://Scenes/Characters/Enemies/Beatle/beatle.tscn")
+const CHEST_SCENE    : PackedScene = preload("res://Scenes/Objects/Chest/chest.tscn")
+const KEY_SCENE      : PackedScene = preload("res://Scenes/Objects/Item/Items/key.tscn")
+const BREAKING_SCENE : PackedScene = preload("res://Scenes/animated_breaking.tscn")
 
 const LIST_LAND : Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]
 
@@ -36,8 +39,8 @@ func generate_chunk(pos : Vector2) -> void:
 			# позиция тайла относительно начала
 			var tile_position  : Vector2i = Vector2i(x, y) + center_tile - region_size / 2
 			
-			var tile_data_path   : TileData = layer_path.get_cell_tile_data(tile_position) 
-			var tile_data_floor  : TileData = layer_floor.get_cell_tile_data(tile_position) 
+			var tile_data_path  : TileData = layer_path.get_cell_tile_data(tile_position) 
+			var tile_data_floor : TileData = layer_floor.get_cell_tile_data(tile_position) 
 			
 			#границы чанков
 			if x == 0 or y == 0 or\
@@ -67,17 +70,20 @@ func generate_chunk(pos : Vector2) -> void:
 			
 			#новые тайлы стен, где есть туман
 			if tile_data_fog:
-				if caves_altitude < 0.3:
-					if not randi_range(0, 49):
-						_spawn_diamond(tile_position)
+				if caves_altitude < 0.2:
+					if not randi_range(0, 39):
+						spawn_object(DIAMOND_SCENE, tile_position)
 					else:
 						list_new_tiles.append(tile_position)
 				else:
-					if not randi_range(0, 29):
-						_spawn_diamond(tile_position)
-					else:
-						if not randi_range(0, 19):
-							_spawn_beatle(tile_position)
+					if not randi_range(0, 199):
+						spawn_object(KEY_SCENE, tile_position)
+					elif not randi_range(0, 149):
+						spawn_object(CHEST_SCENE, tile_position)
+					elif not randi_range(0, 29):
+						spawn_object(DIAMOND_SCENE, tile_position)
+					elif not randi_range(0, 19):
+						spawn_object(BEATLE_SCENE, tile_position)
 				
 			#пол появляется там, где нету пола
 			if not tile_data_floor:
@@ -92,18 +98,13 @@ func path_is_nearby(tile_pos : Vector2i) -> bool:
 			return true
 	return false
 
-func _spawn_diamond(tile_pos : Vector2i) -> void:
-	var new_diamond : StaticBody2D = DIAMOND_SCENE.instantiate()
-	get_tree().current_scene.add_child(new_diamond)
+func spawn_object(object_scene : PackedScene, tile_pos : Vector2i) -> Node2D:
+	var new_object : Node2D = object_scene.instantiate()
+	get_tree().current_scene.add_child(new_object)
 	
-	new_diamond.global_position = map_to_local(tile_pos)
-	
-func _spawn_beatle(tile_pos : Vector2i) -> void:
-	var new_beatle : CharacterBody2D = BEATLE_SCENE.instantiate()
-	get_tree().current_scene.add_child(new_beatle)
-	
-	new_beatle.global_position = map_to_local(tile_pos)
-	
+	new_object.global_position = map_to_local(tile_pos)
+	return new_object
+
 func clear_fog(tile_position : Vector2i) -> void:
 	layer_fog.erase_cell(tile_position) 
 	layer_path.set_cell(tile_position, 3, Vector2i.ZERO)
@@ -112,10 +113,14 @@ func breaking_tile(tile_pos : Vector2i) -> void:
 	var tile_date = layer_wall.get_cell_tile_data(tile_pos) # получает данные о тайле
 	if tile_date:
 		if tile_pos not in endurance_tiles:
-			endurance_tiles[tile_pos] = 2
-		endurance_tiles[tile_pos] -= 1
-		if endurance_tiles[tile_pos] <= 0:
+			endurance_tiles[tile_pos] = [6, spawn_object(BREAKING_SCENE, tile_pos)]
+			
+		endurance_tiles[tile_pos][0] -= 1
+		endurance_tiles[tile_pos][1].frame += 3
+		
+		if endurance_tiles[tile_pos][0] <= 0:
 			layer_wall.set_cells_terrain_connect([tile_pos], 0, -1, false)
+			endurance_tiles[tile_pos][1].queue_free()
 			endurance_tiles.erase(tile_pos)
 	
 func get_array_circle(radius : int) -> Array[Vector2i]:

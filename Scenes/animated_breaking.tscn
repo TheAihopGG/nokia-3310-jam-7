@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://d21suvcf1w0ja"]
+
+[ext_resource type="Texture2D" uid="uid://dadi84n2eykew" path="res://Assets/block_destruction-Sheet.png" id="1_sgywa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3668f"]
+atlas = ExtResource("1_sgywa")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n78om"]
+atlas = ExtResource("1_sgywa")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uax1f"]
+atlas = ExtResource("1_sgywa")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlxxd"]
+atlas = ExtResource("1_sgywa")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41kf1"]
+atlas = ExtResource("1_sgywa")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlkok"]
+atlas = ExtResource("1_sgywa")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iny7a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3668f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n78om")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uax1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlxxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41kf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlkok")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AnimatedBreaking" type="AnimatedSprite2D"]
+z_index = 3
+sprite_frames = SubResource("SpriteFrames_iny7a")

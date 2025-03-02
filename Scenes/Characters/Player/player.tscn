@@ -287,6 +287,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HealthComponent")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"activate_immortality"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_ng1y3"]
 length = 0.6
@@ -378,7 +392,7 @@ debug_color = Color(0.947358, 3.56168e-06, 0.583463, 0.42)
 
 [node name="AnimatedSprite2D" parent="." index="3"]
 sprite_frames = SubResource("SpriteFrames_eep3v")
-animation = &"attack"
+animation = &"idle"
 
 [node name="AnimationPlayer" parent="." index="4"]
 libraries = {
@@ -420,7 +434,12 @@ stream = ExtResource("9_ohlj8")
 unique_name_in_owner = true
 autostart = true
 
+[node name="TimerImmortality" type="Timer" parent="Timers" index="1"]
+unique_name_in_owner = true
+one_shot = true
+
 [connection signal="hp_changed" from="HealthComponent" to="." method="_on_health_component_hp_changed"]
 [connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
 [connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]
 [connection signal="timeout" from="Timers/HealthRegeneration" to="." method="_on_health_regeneration_timeout"]
+[connection signal="timeout" from="Timers/TimerImmortality" to="HealthComponent" method="_on_timer_immortality_timeout"]

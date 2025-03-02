@@ -34,8 +34,10 @@ func _on_body_exited(_body):
 	body_inside = false
 	timer.stop()
 
-func _collide(body : Node2D) -> void:
-	if body == null or not body.has_node("HealthComponent") or body == parent:
+func _collide(body) -> void:
+	if body == null or not body.has_node("HealthComponent"):
 		pass
 	else:
+		if not body.get_node("HealthComponent").is_taking_damage:
+			return
 		body.get_node("HealthComponent").take_damage(parent, damage, kickback_direction, kickback_force)

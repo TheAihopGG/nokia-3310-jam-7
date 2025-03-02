@@ -83,7 +83,6 @@ text = "0"
 label_settings = SubResource("LabelSettings_yrgut")
 
 [node name="ButtonAgain" type="Button" parent="UI"]
-visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -96,8 +95,10 @@ offset_bottom = -1.0
 grow_horizontal = 0
 grow_vertical = 0
 focus_mode = 0
+theme_override_colors/font_color = Color(0.168627, 0.247059, 0.0352941, 1)
 theme_override_fonts/font = ExtResource("9_o28ag")
 theme_override_font_sizes/font_size = 6
+theme_override_styles/pressed = SubResource("StyleBoxFlat_e6t46")
 theme_override_styles/normal = SubResource("StyleBoxFlat_e6t46")
 text = "Again"
 

@@ -18,3 +18,4 @@ func open() -> void:
 		GlobalVars.player.inventory[key] += drop[key]
 	
 	is_opened = true
+	
